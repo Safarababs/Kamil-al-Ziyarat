@@ -1,0 +1,195 @@
+.chapter-detail-container {
+  padding: 20px;
+  text-align: center;
+  max-width: 100%;
+  margin: 0 auto;
+  background-color: #f4f4f4;
+  margin-bottom: 10px;
+}
+
+.chapter-detail-container h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.chapter-detail-container .hadith-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.chapter-detail-container .hadith-card .hadith-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  width: 100%;
+}
+
+.chapter-detail-container .hadith-card .hadith-header .hadith-number {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  flex: 1;
+}
+
+.chapter-detail-container .hadith-card .hadith-header .nav-button {
+  background-color: #007bff;
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.chapter-detail-container .hadith-card .hadith-header .nav-button:hover {
+  background-color: #0056b3;
+}
+
+.chapter-detail-container .hadith-card .hadith-header .nav-button:active {
+  transform: scale(0.95);
+}
+
+.chapter-detail-container .hadith-card .hadith-content span {
+  font-family: "Noto Nastaliq Urdu", serif;
+  font-size: 1rem;
+  line-height: 2.5;
+  text-align: right;
+  margin: 10px 0;
+  direction: rtl;
+  white-space: pre-line;
+}
+
+.chapter-detail-container .hadith-card .hadith-content span {
+  display: block;
+}
+
+.chapter-detail-container .hadith-card .hadith-content span:nth-child(odd) {
+  color: #333;
+}
+
+.chapter-detail-container .hadith-card .hadith-content span:nth-child(even) {
+  color: #e74c3c;
+}
+
+.chapter-detail-container .hadith-card .copy-share-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+  width: 100%;
+}
+
+.chapter-detail-container .hadith-card .icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #007bff;
+  font-size: 24px;
+  transition: color 0.3s, transform 0.2s;
+}
+
+.chapter-detail-container .hadith-card .icon-button:hover {
+  color: #fff;
+  background-color: #007bff;
+}
+
+.chapter-detail-container .hadith-card .icon-button:active {
+  transform: scale(0.95);
+}
+
+/* Share Modal Styles */
+.share-modal {
+  display: flex; /* Center the modal content */
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 1000;
+}
+
+.share-modal-content {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  width: 80%;
+  max-width: 500px;
+  position: relative;
+}
+
+.share-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.share-close:hover {
+  color: #ff0000;
+}
+
+.share-modal-content button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.share-modal-content button:hover {
+  background-color: #0056b3;
+}
+
+.share-modal-content button:active {
+  transform: scale(0.95);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .chapter-detail-container .hadith-card {
+    padding: 15px;
+  }
+
+  .chapter-detail-container .hadith-card .hadith-header .hadith-number {
+    font-size: 15px;
+    margin: 0;
+  }
+
+  .chapter-detail-container .hadith-card .hadith-header .nav-button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .chapter-detail-container .hadith-card .hadith-content {
+    font-size: 12px;
+    padding: 0;
+    margin: 10px 0;
+  }
+
+  .chapter-detail-container .hadith-card .copy-share-buttons {
+    gap: 10px;
+  }
+}
