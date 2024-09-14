@@ -12,7 +12,7 @@ const App = () => (
     <div>
       <Navbar />
       <main>
-        <Jump /> {/* Add Jump component here */}
+        <Jump />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<SearchFunctionality />} />

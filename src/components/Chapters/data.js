@@ -16,20 +16,22 @@ import chapterFifteen from "./chapterFifteen";
 import chapterSixteen from "./chapterSixteen";
 
 const chapters = {
-  "Chapter 1": chapterOne,
-  "Chapter 2": chapterTwo,
-  "Chapter 3": chapterThree,
-  "Chapter 4": chapterFour,
-  "Chapter 5": chapterFive,
-  "Chapter 6": chapterSix,
-  "Chapter 7": chapterSeven,
-  "Chapter 8": chapterEight,
-  "Chapter 9": chapterNine,
-  "Chapter 10": chapterTen,
-  "Chapter 11": chapterEleven,
-  "Chapter 12": chapterTwelve,
-  "Chapter 13": chapterThirteen,
-  "Chapter 14": chapterFourteen,
+  "رسول خدا، امیر المومنین، امام حسن اور امام حسین کی زیارتوں کا ثواب":
+    chapterOne,
+  "زیارت رسول خدا کا ثواب": chapterTwo,
+  "زیارت رسول خدا اور وہاں کی دعائیں": chapterThree,
+  "مسجد النبی میں نماز پڑھنے کی فضیلت": chapterFour,
+  "حضرت حمزہ اور دیگر شہداء کی زیارت": chapterFive,
+  "مدینہ کے مشاہدہ مشرفہ کی فضیلت اور ان کی زیارتوں کا ثواب": chapterSix,
+  "قبر رسول خدا سے وداع": chapterSeven,
+  "مسجد کوفہ اور مسجد سہلہ میں نماز پڑھنے کی فضیلت اور اس کا ثواب":
+    chapterEight,
+  "قبر امیر المومنین": chapterNine,
+  "امیر المومنین کی زیارت کا ثواب": chapterTen,
+  "زیارت امیر المومنین، اس کا طریقہ اور وہاں کی دعا": chapterEleven,
+  "ذکر وداع قبر امیر المومنین": chapterTwelve,
+  "آب فرات کے پینے اور اس سے غسل کرنے کی فضیلت": chapterThirteen,
+  "امام حسن اور امام حسین سے رسول خدا کی محبت": chapterFourteen,
   "Chapter 15": chapterFifteen,
   "Chapter 16": chapterSixteen,
 };

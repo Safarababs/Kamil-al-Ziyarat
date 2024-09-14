@@ -13,6 +13,7 @@
   color: #007bff;
   font-size: 2rem;
   text-align: center;
+  font-family: "Noto Nastaliq Urdu", serif;
 }
 
 .home ul {
@@ -36,6 +37,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  font-family: "Noto Nastaliq Urdu", serif;
 }
 
 .home li:hover {

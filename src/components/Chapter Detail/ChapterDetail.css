@@ -59,26 +59,36 @@
   transform: scale(0.95);
 }
 
-.chapter-detail-container .hadith-card .hadith-content span {
+.chapter-detail-container .hadith-card .hadith-content {
   font-family: "Noto Nastaliq Urdu", serif;
-  font-size: 1rem;
-  line-height: 2.5;
   text-align: right;
-  margin: 10px 0;
   direction: rtl;
-  white-space: pre-line;
+  width: 100%;
 }
 
-.chapter-detail-container .hadith-card .hadith-content span {
-  display: block;
+.chapter-detail-container .hadith-card .raavi {
+  color: red;
+  font-size: 1rem;
+  margin: 10px 0;
 }
 
-.chapter-detail-container .hadith-card .hadith-content span:nth-child(odd) {
-  color: #333;
+.chapter-detail-container .hadith-card .black-text-one {
+  color: black;
+  font-size: 1rem;
+  margin: 10px 0;
 }
 
-.chapter-detail-container .hadith-card .hadith-content span:nth-child(even) {
-  color: #e74c3c;
+.chapter-detail-container .hadith-card .arabic-text {
+  color: blue;
+  font-family: "Lateef", "Amiri", serif;
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+
+.chapter-detail-container .hadith-card .black-text-two {
+  color: black;
+  font-size: 1rem;
+  margin: 10px 0;
 }
 
 .chapter-detail-container .hadith-card .copy-share-buttons {
