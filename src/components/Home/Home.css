@@ -6,6 +6,7 @@
   padding: 20px;
   margin: 0 auto;
   max-width: 1200px;
+  direction: rtl; /* Ensure RTL direction for the container */
 }
 
 .home h2 {
@@ -35,9 +36,10 @@
   transition: transform 0.3s, box-shadow 0.3s;
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  justify-content: right;
+  text-align: right;
   font-family: "Noto Nastaliq Urdu", serif;
+  direction: rtl; /* Ensure RTL direction for the list items */
 }
 
 .home li:hover {
@@ -47,10 +49,11 @@
 
 .home li a {
   text-decoration: none;
-  color: #007bff;
+  color: black;
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   transition: color 0.3s;
+  text-align: right;
 }
 
 .home li a:hover {
@@ -80,11 +83,11 @@
   }
 
   .home li {
-    font-size: 1rem;
+    font-size: 0.8rem;
     padding: 15px;
   }
 
   .home li a {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 }

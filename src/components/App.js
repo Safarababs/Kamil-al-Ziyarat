@@ -5,24 +5,29 @@ import Home from "./Home/Home";
 import ChapterDetail from "./Chapter Detail/ChapterDetail";
 import SearchFunctionality from "./Search Functionality/SearchFunctionality";
 import FavoritesComponent from "./Favorites Component/FavoritesComponent";
-import Jump from "./JumpModal/Jump";
+
+import AddHadithForm from "./Add Hadith/AddHadithForm";
+import HadithDetail from "./Chapter Detail/HadithDetail";
 
 const App = () => (
   <Router>
     <div>
       <Navbar />
+
       <main>
-        <Jump />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/search" element={<SearchFunctionality />} />
-          <Route path="/chapter/:chapterName" element={<ChapterDetail />} />
-          <Route
-            path="/chapter/:chapterName/:hadithNumber"
-            element={<ChapterDetail />}
-          />
-          <Route path="/favorites" element={<FavoritesComponent />} />
-        </Routes>
+        <div className="main" style={{ marginTop: "25px", paddingTop: "4rem" }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/search" element={<SearchFunctionality />} />
+            <Route path="/chapter/:chapterNumber" element={<ChapterDetail />} />
+            <Route
+              path="/chapter/:chapterNumber/:hadithNumber"
+              element={<HadithDetail />}
+            />
+            <Route path="/favorites" element={<FavoritesComponent />} />
+            <Route path="/add" element={<AddHadithForm />} />
+          </Routes>
+        </div>
       </main>
     </div>
   </Router>

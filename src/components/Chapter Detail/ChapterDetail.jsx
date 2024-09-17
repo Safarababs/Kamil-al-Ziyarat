@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { chapters } from "../Chapters/data";
 import {
   FaAngleLeft,
   FaAngleRight,
@@ -11,102 +10,131 @@ import {
 import "./ChapterDetail.css";
 
 const ChapterDetail = () => {
-  const { chapterName, hadithNumber } = useParams();
-
-  const chapterData = useMemo(
-    () => chapters[decodeURIComponent(chapterName)] || [],
-    [chapterName]
-  );
-
-  const [currentHadith, setCurrentHadith] = useState({});
+  const { chapterNumber } = useParams();
+  const [hadiths, setHadiths] = useState([]);
+  const [chapterName, setChapterName] = useState("");
+  const [currentHadith, setCurrentHadith] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const initialHadith =
-      chapterData.find(
-        (hadith) => hadith.hadithNumber === parseInt(hadithNumber, 10)
-      ) || chapterData[0];
-    setCurrentHadith(initialHadith);
-  }, [hadithNumber, chapterData]);
+    const fetchHadiths = async () => {
+      try {
+        const response = await fetch(
+          `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadiths?chapterNumber=${chapterNumber}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setHadiths(data);
+          setCurrentHadith(data[0] || null); // Set the first hadith or null if no hadiths
+        } else {
+          setError("Failed to fetch Hadiths");
+        }
+      } catch (error) {
+        setError("Error fetching Hadiths");
+      }
+    };
+
+    const fetchChapterName = async () => {
+      try {
+        const response = await fetch(
+          "https://kamil-al-ziyarat-backend-1.onrender.com/api/get-chapters"
+        );
+        if (response.ok) {
+          const chapters = await response.json();
+          const chapter = chapters.find(
+            (c) => c.number === parseInt(chapterNumber, 10)
+          );
+          if (chapter) {
+            setChapterName(chapter.name);
+          } else {
+            setError("Chapter not found");
+          }
+        } else {
+          setError("Failed to fetch chapters");
+        }
+      } catch (error) {
+        setError("Error fetching chapters");
+      }
+    };
+
+    fetchHadiths();
+    fetchChapterName();
+  }, [chapterNumber]);
 
   const handleNext = () => {
-    const nextHadith = chapterData.find(
-      (hadith) => hadith.hadithNumber === currentHadith.hadithNumber + 1
-    );
-    if (nextHadith) {
-      setCurrentHadith(nextHadith);
-    } else {
-      console.warn("No next hadith found.");
+    const currentIndex = hadiths.indexOf(currentHadith);
+    if (currentIndex < hadiths.length - 1) {
+      setCurrentHadith(hadiths[currentIndex + 1]);
     }
   };
 
   const handlePrevious = () => {
-    const previousHadith = chapterData.find(
-      (hadith) => hadith.hadithNumber === currentHadith.hadithNumber - 1
-    );
-    if (previousHadith) {
-      setCurrentHadith(previousHadith);
-    } else {
-      console.warn("No previous hadith found.");
+    const currentIndex = hadiths.indexOf(currentHadith);
+    if (currentIndex > 0) {
+      setCurrentHadith(hadiths[currentIndex - 1]);
     }
   };
 
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <div className="chapter-detail-container">
-      <h2>{decodeURIComponent(chapterName)}</h2>
-      <div className="hadith-card">
-        <div className="hadith-header">
-          <button
-            className="nav-button"
-            onClick={handlePrevious}
-            disabled={currentHadith.hadithNumber <= 1}
-          >
-            <FaAngleLeft /> Prev
-          </button>
-          <div className="hadith-number">
-            Hadith No {currentHadith.hadithNumber}
+      <h2>{chapterName}</h2>
+      {currentHadith ? (
+        <div className="hadith-card">
+          <div className="hadith-header">
+            <button
+              className="nav-button"
+              onClick={handlePrevious}
+              disabled={!hadiths.length || hadiths.indexOf(currentHadith) === 0}
+            >
+              <FaAngleLeft /> Prev
+            </button>
+            <div className="hadith-number">
+              Hadith No {currentHadith.hadithNumber}
+            </div>
+            <button
+              className="nav-button"
+              onClick={handleNext}
+              disabled={
+                !hadiths.length ||
+                hadiths.indexOf(currentHadith) === hadiths.length - 1
+              }
+            >
+              Next <FaAngleRight />
+            </button>
           </div>
-          <button
-            className="nav-button"
-            onClick={handleNext}
-            disabled={currentHadith.hadithNumber >= chapterData.length}
-          >
-            Next <FaAngleRight />
-          </button>
+          <div className="hadith-content">
+            <div className="arabic-text">{currentHadith.arabicText}</div>
+            <div className="raavi">{currentHadith.raavi}</div>
+            <div className="black-text-one">{currentHadith.blackTextOne}</div>
+
+            <div className="black-text-two">
+              راوی:{currentHadith.blackTextTwo} ... (حوالہ جات)
+              {currentHadith.bookName}
+            </div>
+            <div className="black-text-two">
+              Contributed By: {currentHadith.user}
+            </div>
+            <div className="english-text">{currentHadith.englishText}</div>
+          </div>
+          <div className="copy-share-buttons">
+            <button className="icon-button">
+              <FaCopy />
+            </button>
+            <button className="icon-button">
+              <FaShareAlt />
+            </button>
+            <button className="icon-button">
+              <FaHeart />
+            </button>
+          </div>
         </div>
-        <div className="hadith-content">
-          <div className="raavi">{currentHadith.raavi}</div>
-          <div className="black-text-one">{currentHadith.blackTextOne}</div>
-          <div className="arabic-text">{currentHadith.arabicText}</div>
-          <div className="black-text-two">{currentHadith.blackTextTwo}</div>
-        </div>
-        <div className="copy-share-buttons">
-          <button
-            className="icon-button"
-            onClick={() => {
-              /* copy functionality */
-            }}
-          >
-            <FaCopy />
-          </button>
-          <button
-            className="icon-button"
-            onClick={() => {
-              /* share functionality */
-            }}
-          >
-            <FaShareAlt />
-          </button>
-          <button
-            className="icon-button"
-            onClick={() => {
-              /* favorite functionality */
-            }}
-          >
-            <FaHeart />
-          </button>
-        </div>
-        {/* Add Share Modal if needed */}
-      </div>
+      ) : (
+        <p>No Hadiths available</p>
+      )}
     </div>
   );
 };
