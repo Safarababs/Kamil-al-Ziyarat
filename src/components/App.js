@@ -3,11 +3,12 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./Navbar/Navbar";
 import Home from "./Home/Home";
 import ChapterDetail from "./Chapter Detail/ChapterDetail";
-import SearchFunctionality from "./Search Functionality/SearchFunctionality";
-import FavoritesComponent from "./Favorites Component/FavoritesComponent";
-
-import AddHadithForm from "./Add Hadith/AddHadithForm";
 import HadithDetail from "./Chapter Detail/HadithDetail";
+import UserManagementPage from "./UserManagement/UserManagement";
+import AddHadithPage from "./UserManagement/AddHadithPage";
+import UpdateHadithPage from "./UserManagement/UpdateHadithPage";
+import DeleteHadithPage from "./UserManagement/DeleteHadithPage";
+import LoginPage from "./UserManagement/LoginPage";
 
 const App = () => (
   <Router>
@@ -18,14 +19,16 @@ const App = () => (
         <div className="main" style={{ marginTop: "25px", paddingTop: "4rem" }}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/search" element={<SearchFunctionality />} />
             <Route path="/chapter/:chapterNumber" element={<ChapterDetail />} />
             <Route
               path="/chapter/:chapterNumber/:hadithNumber"
               element={<HadithDetail />}
             />
-            <Route path="/favorites" element={<FavoritesComponent />} />
-            <Route path="/add" element={<AddHadithForm />} />
+            <Route path="/user" element={<LoginPage />} />
+            <Route path="/user-management" element={<UserManagementPage />} />
+            <Route path="/add-hadith" element={<AddHadithPage />} />
+            <Route path="/update-hadith" element={<UpdateHadithPage />} />
+            <Route path="/delete-hadith" element={<DeleteHadithPage />} />
           </Routes>
         </div>
       </main>

@@ -7,6 +7,7 @@ import {
   FaCopy,
   FaShareAlt,
 } from "react-icons/fa";
+
 import "./ChapterDetail.css";
 
 const ChapterDetail = () => {
@@ -20,7 +21,7 @@ const ChapterDetail = () => {
     const fetchHadiths = async () => {
       try {
         const response = await fetch(
-          `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadiths?chapterNumber=${chapterNumber}`
+          `https://kamil-al-ziyarat.netlify.app/api/get-hadiths?chapterNumber=${chapterNumber}`
         );
         if (response.ok) {
           const data = await response.json();
@@ -37,7 +38,7 @@ const ChapterDetail = () => {
     const fetchChapterName = async () => {
       try {
         const response = await fetch(
-          "https://kamil-al-ziyarat-backend-1.onrender.com/api/get-chapters"
+          "https://kamil-al-ziyarat.netlify.app/api/get-chapters"
         );
         if (response.ok) {
           const chapters = await response.json();
@@ -75,13 +76,10 @@ const ChapterDetail = () => {
     }
   };
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   return (
     <div className="chapter-detail-container">
       <h2>{chapterName}</h2>
+      {error && <p className="error">{error}</p>} {/* Display error message */}
       {currentHadith ? (
         <div className="hadith-card">
           <div className="hadith-header">
@@ -110,9 +108,8 @@ const ChapterDetail = () => {
             <div className="arabic-text">{currentHadith.arabicText}</div>
             <div className="raavi">{currentHadith.raavi}</div>
             <div className="black-text-one">{currentHadith.blackTextOne}</div>
-
             <div className="black-text-two">
-              راوی:{currentHadith.blackTextTwo} ... (حوالہ جات)
+              راوی: {currentHadith.blackTextTwo} ... (حوالہ جات)
               {currentHadith.bookName}
             </div>
             <div className="black-text-two">

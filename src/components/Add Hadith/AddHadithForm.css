@@ -56,7 +56,7 @@ select {
 }
 
 textarea {
-  min-height: 60px;
+  min-height: 300px;
   font-family: "Noto Nastaliq Urdu", serif;
   font-size: 1.2rem;
 }
