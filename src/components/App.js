@@ -16,12 +16,15 @@ const App = () => (
       <Navbar />
 
       <main>
-        <div className="main" style={{ marginTop: "25px", paddingTop: "4rem" }}>
+        <div
+          className="main"
+          style={{ marginTop: "50px", paddingTop: "4.5rem" }}
+        >
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/chapter/:chapterNumber" element={<ChapterDetail />} />
             <Route
-              path="/chapter/:chapterNumber/:hadithNumber"
+              path="/hadith/:chapterNumber/:hadithNumber"
               element={<HadithDetail />}
             />
             <Route path="/user" element={<LoginPage />} />

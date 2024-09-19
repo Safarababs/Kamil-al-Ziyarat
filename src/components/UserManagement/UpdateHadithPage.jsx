@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import UpdateHadithForm from "../Update Hadith Form/UpdateHadithForm";
+import UpdateHadith from "../Update Hadith Form/UpdateHadithForm";
 
 const UpdateHadithPage = () => {
   // eslint-disable-next-line no-unused-vars
@@ -19,8 +19,7 @@ const UpdateHadithPage = () => {
 
   return (
     <div>
-      <h1>Update Hadith</h1>
-      <UpdateHadithForm onUpdate={handleUpdate} onClose={handleClose} />
+      <UpdateHadith onUpdate={handleUpdate} onClose={handleClose} />
     </div>
   );
 };

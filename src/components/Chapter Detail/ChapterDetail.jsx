@@ -21,7 +21,7 @@ const ChapterDetail = () => {
     const fetchHadiths = async () => {
       try {
         const response = await fetch(
-          `https://kamil-al-ziyarat.netlify.app/api/get-hadiths?chapterNumber=${chapterNumber}`
+          `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadiths?chapterNumber=${chapterNumber}`
         );
         if (response.ok) {
           const data = await response.json();
@@ -38,7 +38,7 @@ const ChapterDetail = () => {
     const fetchChapterName = async () => {
       try {
         const response = await fetch(
-          "https://kamil-al-ziyarat.netlify.app/api/get-chapters"
+          "https://kamil-al-ziyarat-backend-1.onrender.com/api/get-chapters"
         );
         if (response.ok) {
           const chapters = await response.json();

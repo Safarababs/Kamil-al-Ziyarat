@@ -1,11 +1,22 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { FaHome, FaCog, FaSearch, FaArrowRight } from "react-icons/fa";
-import Jump from "../JumpModal/Jump";
+import { Link, useNavigate } from "react-router-dom";
+import { FaHome, FaCog, FaSearch, FaUser } from "react-icons/fa";
 import "./Navbar.css";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [modalVisible, setModalVisible] = useState(false);
+  const [chapterNumber, setChapterNumber] = useState("");
+  const [hadithNumber, setHadithNumber] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (chapterNumber && hadithNumber) {
+      // Navigate to HadithDetail with chapterNumber and hadithNumber
+      navigate(`/hadith/${chapterNumber}/${hadithNumber}`);
+      setModalVisible(false);
+    }
+  };
 
   return (
     <nav className="navbar">
@@ -23,22 +34,50 @@ const Navbar = () => {
           </Link>
         </li>
         <li className="navbar-item">
-          <Link to="/search" className="navbar-link">
+          <button className="navbar-link" onClick={() => setModalVisible(true)}>
             <FaSearch className="navbar-icon" />
-            <span className="navbar-text">Search</span>
-          </Link>
-        </li>
-        <li className="navbar-item jump-button">
-          <button
-            className="navbar-link jump-btn"
-            onClick={() => setModalVisible(true)}
-          >
-            <FaArrowRight className="jump-icon" />
-            <span className="navbar-text">Jump</span>
+            <span className="navbar-text">Search Hadith</span>
           </button>
         </li>
+        <li className="navbar-item">
+          <Link to="/user" className="navbar-link">
+            <FaUser className="navbar-icon" />
+            <span className="navbar-text">User</span>
+          </Link>
+        </li>
       </ul>
-      {modalVisible && <Jump onClose={() => setModalVisible(false)} />}
+
+      {modalVisible && (
+        <div className="search-modal">
+          <div className="search-modal-content">
+            <button className="close" onClick={() => setModalVisible(false)}>
+              ×
+            </button>
+            <h2>Search Hadith</h2>
+            <form onSubmit={handleSearch}>
+              <label>
+                Chapter Number:
+                <input
+                  type="number"
+                  value={chapterNumber}
+                  onChange={(e) => setChapterNumber(e.target.value)}
+                  required
+                />
+              </label>
+              <label>
+                Hadith Number:
+                <input
+                  type="number"
+                  value={hadithNumber}
+                  onChange={(e) => setHadithNumber(e.target.value)}
+                  required
+                />
+              </label>
+              <button type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

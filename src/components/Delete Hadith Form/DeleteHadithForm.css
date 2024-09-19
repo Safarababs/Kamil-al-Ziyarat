@@ -1,0 +1,72 @@
+/* DeleteHadithForm.css */
+
+/* Styles for the delete hadith form */
+.delete-hadith-form {
+  max-width: 500px; /* Maximum width for the form */
+  margin: 20px auto; /* Center the form */
+  padding: 20px; /* Padding inside the form */
+  border: 1px solid #ccc; /* Border around the form */
+  border-radius: 8px; /* Rounded corners */
+  background-color: #f9f9f9; /* Background color */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Styles for the title */
+.delete-hadith-form .delete-hadith-title {
+  text-align: center; /* Center the title */
+  color: #333; /* Title color */
+  margin-bottom: 20px; /* Space below the title */
+}
+
+/* Styles for the input container */
+.delete-hadith-form .input-container {
+  display: flex; /* Flexbox for layout */
+  flex-direction: column; /* Column layout */
+}
+
+/* Styles for input fields */
+.delete-hadith-form .delete-hadith-input {
+  width: 100%; /* Full width */
+  padding: 10px; /* Padding inside the input */
+  margin: 10px 0; /* Space above and below each input */
+  border: 1px solid #ccc; /* Border color */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 16px; /* Font size for inputs */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+/* Styles for buttons */
+.delete-hadith-form .delete-hadith-button,
+.delete-hadith-form .cancel-button {
+  width: 100%; /* Full width */
+  padding: 10px; /* Padding inside the button */
+  margin: 10px 0;
+  background-color: #007bff; /* Red button color */
+  color: white; /* Text color */
+  border: 1px solid transparent; /* Transparent border */
+  border-radius: 4px; /* Rounded corners for button */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size for button */
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* Transition for hover effect */
+  margin-top: 10px; /* Space above buttons */
+}
+
+/* Styles for the button on hover */
+.delete-hadith-form .delete-hadith-button:hover,
+.delete-hadith-form .cancel-button:hover {
+  background-color: #0c4582; /* Darker red on hover */
+}
+
+/* Styles for error and loading messages */
+.delete-hadith-form .loading-text,
+.delete-hadith-form .error-text {
+  color: #007bff; /* Red color for error messages */
+  text-align: center; /* Center the text */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .delete-hadith-form {
+    padding: 15px; /* Less padding on smaller screens */
+  }
+}

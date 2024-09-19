@@ -1,37 +1,66 @@
 .user-management-container {
-  max-width: 600px;
-  margin: 20px auto;
+  max-width: 400px;
+  margin: 40px auto;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  background-color: #f9f9f9;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: box-shadow 0.3s;
 }
 
-.user-selection {
+.user-management-container:hover {
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+}
+
+.user-management-container h1 {
+  font-size: 24px;
   margin-bottom: 20px;
+  color: #333;
 }
 
-.button-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.action-button {
-  background-color: #007bff;
-  color: white;
-  padding: 10px;
-  margin: 10px 0;
+.user-management-container button {
+  display: inline-block;
+  margin: 10px;
+  padding: 12px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-.action-button:hover {
-  background-color: #0056b3;
+/* Button colors */
+.add-hadith-button {
+  background-color: #4caf50; /* Green */
 }
 
-form {
-  margin-top: 20px;
+.update-hadith-button {
+  background-color: #2196f3; /* Blue */
+}
+
+.delete-hadith-button {
+  background-color: #f44336; /* Red */
+}
+
+.user-management-container button:hover {
+  transform: translateY(-2px);
+}
+
+.user-management-container button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Responsive styles */
+@media (max-width: 400px) {
+  .user-management-container {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .user-management-container button {
+    width: 100%;
+    margin: 5px 0;
+  }
 }

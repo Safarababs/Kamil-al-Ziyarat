@@ -1,0 +1,110 @@
+/* Container for the entire update hadith section */
+.unique-update-hadith-container {
+  max-width: 600px; /* Maximum width of the container */
+  margin: 0 auto; /* Center the container */
+  padding: 20px; /* Padding inside the container */
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 8px; /* Rounded corners */
+  background-color: #f9f9f9; /* Light background color */
+}
+
+/* Heading style */
+.update-hadith-title {
+  text-align: center; /* Center the heading text */
+  color: #333; /* Dark gray color for text */
+}
+
+/* Style for input fields */
+.update-hadith-input {
+  width: 100%; /* Full width input fields */
+  padding: 10px; /* Padding inside the input */
+  margin: 10px 0; /* Margin above and below each input */
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 4px; /* Slightly rounded corners */
+  font-size: 16px; /* Font size for input text */
+  box-sizing: border-box; /* Include padding and border in width */
+}
+
+/* Style for text areas */
+.update-hadith-textarea {
+  width: 100%; /* Full width text area */
+  height: 300px; /* Fixed height */
+  padding: 10px; /* Padding inside the text area */
+  margin: 10px 0; /* Margin above and below each text area */
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 4px; /* Slightly rounded corners */
+  font-size: 16px; /* Font size for text area */
+  box-sizing: border-box; /* Include padding and border in width */
+}
+
+/* Style for buttons */
+.update-hadith-button {
+  width: 100%; /* Full width button */
+  background-color: #007bff; /* Blue background for buttons */
+  color: white; /* White text color */
+  padding: 10px; /* Padding inside the button */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size for button text */
+  margin: 10px 0; /* Margin above and below buttons */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Change background color on button hover */
+.update-hadith-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Specific styles for search button */
+.search-button {
+  background-color: #0056b3; /* Green background for the search button */
+}
+
+.search-button:hover {
+  background-color: #02264b; /* Darker green on hover */
+}
+
+/* Specific styles for update button */
+.update-button {
+  background-color: #007bff; /* Blue background for the update button */
+}
+
+.update-button:hover {
+  background-color: #02264b; /* Darker blue on hover */
+}
+
+/* Style for message display */
+.update-hadith-message {
+  text-align: center; /* Center align messages */
+  color: #d9534f; /* Red color for error messages */
+  font-weight: bold; /* Bold text for emphasis */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  /* Adjust container padding for smaller screens */
+  .unique-update-hadith-container {
+    padding: 15px; /* Slightly less padding */
+  }
+
+  /* Decrease font size for smaller screens */
+  .update-hadith-input,
+  .update-hadith-textarea,
+  .update-hadith-button {
+    font-size: 14px; /* Smaller font size */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Further adjustments for very small screens */
+  .unique-update-hadith-container {
+    padding: 10px; /* Minimal padding */
+  }
+
+  .update-hadith-input,
+  .update-hadith-textarea,
+  .update-hadith-button {
+    font-size: 12px; /* Even smaller font size */
+  }
+}

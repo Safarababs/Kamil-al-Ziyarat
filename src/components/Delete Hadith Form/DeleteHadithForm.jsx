@@ -6,14 +6,16 @@ const DeleteHadithForm = ({ onClose, onDelete }) => {
   const [hadith, setHadith] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [deleteMessage, setDeleteMessage] = useState(""); // New state for delete message
 
   const fetchHadith = async () => {
     setLoading(true);
     setError("");
+    setDeleteMessage(""); // Reset delete message
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/get-hadiths?chapterNumber=${chapterNumber}`
+        `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadiths?chapterNumber=${chapterNumber}`
       );
 
       if (!response.ok) {
@@ -27,8 +29,9 @@ const DeleteHadithForm = ({ onClose, onDelete }) => {
 
       if (foundHadith) {
         setHadith(foundHadith);
+        setDeleteMessage(`Hadith with ID ${foundHadith._id} found.`); // Set delete message
       } else {
-        setHadith(null); // Reset hadith when not found
+        setHadith(null);
         setError("Hadith not found");
       }
     } catch (error) {
@@ -46,7 +49,7 @@ const DeleteHadithForm = ({ onClose, onDelete }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/delete-hadith/${hadith._id}`,
+        `https://kamil-al-ziyarat-backend-1.onrender.com/api/delete-hadith/${hadith._id}`,
         {
           method: "DELETE",
         }
@@ -68,43 +71,53 @@ const DeleteHadithForm = ({ onClose, onDelete }) => {
 
   return (
     <div className="delete-hadith-form">
-      <h2>Delete Hadith</h2>
-
-      <div>
+      <h2 className="delete-hadith-title">Delete Hadith</h2>
+      <div className="input-container">
         <input
+          className="delete-hadith-input"
           type="number"
           placeholder="Chapter Number"
           value={chapterNumber}
           onChange={(e) => setChapterNumber(e.target.value)}
         />
         <input
+          className="delete-hadith-input"
           type="number"
           placeholder="Hadith Number"
           value={hadithNumber}
           onChange={(e) => setHadithNumber(e.target.value)}
         />
-        <button onClick={fetchHadith} disabled={loading}>
+        <button
+          className="delete-hadith-button"
+          onClick={fetchHadith}
+          disabled={loading}
+        >
           {loading ? "Searching..." : "Search Hadith"}
         </button>
       </div>
-
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-
+      {loading && <p className="loading-text">Loading...</p>}
+      {error && <p className="error-text">{error}</p>}
+      {deleteMessage && <p className="delete-message">{deleteMessage}</p>}{" "}
+      {/* Display delete message */}
       {hadith ? (
         <>
           <p>Are you sure you want to delete this Hadith?</p>
           <p>Hadith No: {hadith.hadithNumber}</p>
           <p>Content: {hadith.content}</p>
-          <button onClick={handleDelete} disabled={loading}>
+          <button
+            className="delete-hadith-button"
+            onClick={handleDelete}
+            disabled={loading}
+          >
             {loading ? "Deleting..." : "Confirm Delete"}
           </button>
         </>
       ) : (
         error === "Hadith not found" && <p>Search Again</p>
       )}
-
-      <button onClick={onClose}>Cancel</button>
+      <button className="cancel-button" onClick={onClose}>
+        Cancel
+      </button>
     </div>
   );
 };
