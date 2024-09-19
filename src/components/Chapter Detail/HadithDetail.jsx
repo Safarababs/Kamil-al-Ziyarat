@@ -90,6 +90,7 @@ const HadithDetail = () => {
       {error && <p className="error">{error}</p>}
       {currentHadith ? (
         <div className="hadith-card">
+          <h2>Chapter No: {currentHadith.chapterNumber}</h2>
           <div className="hadith-header">
             <button
               className="nav-button"

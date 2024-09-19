@@ -91,7 +91,8 @@ const ChapterDetail = () => {
               <FaAngleLeft /> Prev
             </button>
             <div className="hadith-number">
-              Hadith No {currentHadith.hadithNumber}
+              <h2>Chapter No: {currentHadith.chapterNumber}</h2> Hadith No{" "}
+              {currentHadith.hadithNumber}
             </div>
             <button
               className="nav-button"
