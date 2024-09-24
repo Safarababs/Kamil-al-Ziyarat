@@ -19,61 +19,78 @@
 }
 
 /* Form group for layout of inputs and labels */
-.form-group {
-  margin-bottom: 10px;
+.add-hadith-form-container .add-hadith-form .form-group {
+  margin-bottom: 15px; /* Increased margin for better spacing */
   display: flex;
   flex-direction: column;
 }
 
 /* Layout for inputs that need to be in a row */
-.row {
+.add-hadith-form-container .add-hadith-form .row {
   display: flex;
   flex-wrap: wrap;
   gap: 8px; /* Spacing between inputs */
 }
 
 /* Styling for individual inputs in a row */
-.row .form-group {
+.add-hadith-form-container .add-hadith-form .row .form-group {
   flex: 1;
   min-width: 120px;
 }
 
 /* Styling for shorter inputs */
-.short-input {
+.add-hadith-form-container .add-hadith-form .short-input {
   max-width: 120px; /* Short input width */
 }
 
 /* Input styling */
-input,
-textarea,
-select {
+.add-hadith-form-container .add-hadith-form input,
+.add-hadith-form-container .add-hadith-form textarea,
+.add-hadith-form-container .add-hadith-form select {
   width: 100%;
-  padding: 8px;
+  padding: 15px; /* Increased height */
   margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  font-size: 1rem; /* Font size set to 1rem */
 }
 
-textarea {
-  min-height: 300px;
+/* Specific styling for textarea */
+.add-hadith-form-container .add-hadith-form textarea {
+  min-height: 300px; /* Set minimum height to 300px */
   font-family: "Noto Nastaliq Urdu", serif;
-  font-size: 1.2rem;
 }
 
-.add-hadith-form-container .add-hadith-form .form-group .arabic-text {
-  font-family: "Lateef", "Amiri", serif;
-  font-size: 1.2rem;
+/* Specific styling for text inputs for adding Urdu Black and Arabic Text */
+.add-hadith-form-container .add-hadith-form .text-input {
+  min-height: 300px; /* Increased height for text input fields */
+}
+
+/* Arabic text styling */
+.add-hadith-form-container .add-hadith-form .arabic-text {
+  font-family: "Lateef", "Amiri", serif; /* Ensure both fonts are included */
+  font-size: 1.2rem; /* Adjust font size if necessary */
+  direction: rtl; /* Set text direction to right-to-left */
+  color: blue;
+}
+
+/* Arabic text styling */
+.add-hadith-form-container .add-hadith-form .red-text {
+  font-family: "Noto Nastaliq Urdu", serif; /* Ensure both fonts are included */
+  font-size: 1.2rem; /* Adjust font size if necessary */
+  direction: rtl; /* Set text direction to right-to-left */
+  color: red;
 }
 
 /* Dropdown specific styles */
-select {
+.add-hadith-form-container .add-hadith-form select {
   width: 100%;
 }
 
 /* Button styling */
-button {
-  padding: 10px 15px;
+.add-hadith-form-container .add-hadith-form button {
+  padding: 15px 15px; /* Increased button height */
   margin: 10px 0;
   border: none;
   border-radius: 4px;
@@ -83,26 +100,26 @@ button {
   font-size: 16px;
   position: relative;
   text-align: center;
-  width: 95%;
+  width: 100%; /* Full width for buttons */
 }
 
-button:disabled {
+.add-hadith-form-container .add-hadith-form button:disabled {
   background-color: #aaa;
   cursor: not-allowed;
 }
 
-button:hover {
+.add-hadith-form-container .add-hadith-form button:hover {
   background-color: #0056b3;
 }
 
 /* Error message styling */
-.error {
+.add-hadith-form-container .add-hadith-form .error {
   color: red;
   margin-top: 10px;
 }
 
 /* Spinner styling */
-.spinner-overlay {
+.add-hadith-form-container .spinner-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -115,7 +132,7 @@ button:hover {
   z-index: 1000;
 }
 
-.spinner {
+.add-hadith-form-container .spinner {
   border: 8px solid rgba(0, 0, 0, 0.1);
   border-left: 8px solid #007bff;
   border-radius: 50%;
@@ -134,22 +151,50 @@ button:hover {
 }
 
 /* Right-align class for specific inputs */
-.right-align {
+.add-hadith-form-container .right-align {
   text-align: right;
   direction: rtl;
 }
 
 /* Mobile-specific adjustments */
 @media (max-width: 600px) {
-  .row {
+  .add-hadith-form-container .add-hadith-form .row {
     flex-direction: column; /* Stack inputs vertically on mobile */
   }
 
-  .row .form-group {
+  .add-hadith-form-container .add-hadith-form .row .form-group {
     min-width: auto; /* Remove min-width for smaller screens */
   }
 
-  .short-input {
+  .add-hadith-form-container .add-hadith-form .short-input {
     max-width: 100%; /* Full width for short inputs on mobile */
   }
+}
+
+.add-hadith-form-container .mixed-text-preview {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+  min-height: 300px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+/* Additional classes for buttons */
+.add-hadith-form-container .add-hadith-form .add-urdu-black-btn,
+.add-hadith-form-container .add-hadith-form .add-arabic-btn {
+  background-color: #007bff;
+  margin-right: 5px; /* Spacing between buttons */
+}
+
+.add-hadith-form-container .add-hadith-form .add-urdu-black-btn:hover,
+.add-hadith-form-container .add-hadith-form .add-arabic-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Styling for button groups */
+.add-hadith-form-container .add-hadith-form .add-text-buttons {
+  display: flex;
+  justify-content: space-between; /* Space out buttons evenly */
+  margin-bottom: 10px; /* Space between button group and next element */
 }

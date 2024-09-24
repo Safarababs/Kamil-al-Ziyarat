@@ -11,77 +11,76 @@ import "./ChapterDetail.css";
 
 const HadithDetail = () => {
   const { chapterNumber, hadithNumber } = useParams();
-  const [hadiths, setHadiths] = useState([]);
   const [currentHadith, setCurrentHadith] = useState(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchHadiths = async () => {
+    const fetchHadith = async () => {
       try {
         const response = await fetch(
-          `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadiths?chapterNumber=${chapterNumber}`
+          `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadith/${chapterNumber}/${hadithNumber}`
         );
+
         if (!response.ok) {
-          throw new Error("Failed to fetch hadiths");
+          const errorText = await response.text();
+          throw new Error(
+            errorText.includes("<!DOCTYPE")
+              ? "Unexpected HTML response"
+              : "Failed to fetch hadith"
+          );
         }
+
         const data = await response.json();
-        setHadiths(data);
-        const initialHadith = data.find(
-          (h) => h.hadithNumber === parseInt(hadithNumber)
-        );
-        setCurrentHadith(initialHadith || null);
+        setCurrentHadith(data);
       } catch (error) {
-        console.error("Error fetching hadiths:", error);
+        console.error("Error fetching hadith:", error);
         setError(error.message);
       }
     };
 
-    fetchHadiths();
+    fetchHadith();
   }, [chapterNumber, hadithNumber]);
 
   const handleNext = async () => {
-    const currentIndex = hadiths.indexOf(currentHadith);
+    const nextHadithNumber = parseInt(hadithNumber, 10) + 1;
 
-    if (currentIndex < hadiths.length - 1) {
-      setCurrentHadith(hadiths[currentIndex + 1]);
-    } else {
-      const nextChapterNumber = parseInt(chapterNumber, 10) + 1;
+    try {
+      const response = await fetch(
+        `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadith/${chapterNumber}/${nextHadithNumber}`
+      );
 
-      try {
-        const response = await fetch(
-          `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadiths?chapterNumber=${nextChapterNumber}`
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          if (data.length > 0) {
-            setHadiths(data);
-            setCurrentHadith(data[0]);
-            navigate(`/hadith/${nextChapterNumber}/1`);
-          } else {
-            setError(`No hadiths available in chapter ${nextChapterNumber}.`);
-          }
-        } else {
-          if (response.status === 404) {
-            setError(`Cannot move to Chapter ${nextChapterNumber}.`);
-          } else {
-            setError(
-              `Failed to fetch hadiths for chapter ${nextChapterNumber}.`
-            );
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching next chapter:", error);
-        setError("An error occurred while fetching the next chapter.");
+      if (response.ok) {
+        const data = await response.json();
+        setCurrentHadith(data);
+        navigate(`/hadith/${chapterNumber}/${nextHadithNumber}`);
+      } else {
+        setError("No next hadith available.");
       }
+    } catch (error) {
+      console.error("Error fetching next hadith:", error);
+      setError("An error occurred while fetching the next hadith.");
     }
   };
 
-  const handlePrevious = () => {
-    const currentIndex = hadiths.indexOf(currentHadith);
-    if (currentIndex > 0) {
-      setCurrentHadith(hadiths[currentIndex - 1]);
+  const handlePrevious = async () => {
+    const previousHadithNumber = parseInt(hadithNumber, 10) - 1;
+
+    try {
+      const response = await fetch(
+        `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadith/${chapterNumber}/${previousHadithNumber}`
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setCurrentHadith(data);
+        navigate(`/hadith/${chapterNumber}/${previousHadithNumber}`);
+      } else {
+        setError("No previous hadith available.");
+      }
+    } catch (error) {
+      console.error("Error fetching previous hadith:", error);
+      setError("An error occurred while fetching the previous hadith.");
     }
   };
 
@@ -105,11 +104,7 @@ const HadithDetail = () => {
             <button
               className="nav-button"
               onClick={handleNext}
-              disabled={
-                !hadiths.find(
-                  (h) => h.hadithNumber === parseInt(hadithNumber) + 1
-                )
-              }
+              disabled={!currentHadith || currentHadith.hadithNumber >= 10} // Adjust as necessary
             >
               Next <FaAngleRight />
             </button>
@@ -117,9 +112,22 @@ const HadithDetail = () => {
           <div className="hadith-content">
             <div className="arabic-text">{currentHadith.arabicText}</div>
             <div className="raavi">{currentHadith.raavi}</div>
-            <div className="black-text-one">{currentHadith.blackTextOne}</div>
+            <div className="mixed-text-preview">
+              {currentHadith.mixedText.map((item, index) => (
+                <span
+                  key={index}
+                  style={{
+                    color: item.color,
+                    fontFamily: item.font,
+                  }}
+                >
+                  {item.text}{" "}
+                </span>
+              ))}
+            </div>
+
             <div className="black-text-two">
-              راوی: {currentHadith.blackTextTwo} ... (حوالہ جات){" "}
+              راوی: {currentHadith.raavi} ... (حوالہ جات){" "}
               {currentHadith.bookName}
             </div>
             <div className="black-text-two">

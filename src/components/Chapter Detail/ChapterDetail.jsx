@@ -7,7 +7,6 @@ import {
   FaCopy,
   FaShareAlt,
 } from "react-icons/fa";
-
 import "./ChapterDetail.css";
 
 const ChapterDetail = () => {
@@ -21,17 +20,27 @@ const ChapterDetail = () => {
     const fetchHadiths = async () => {
       try {
         const response = await fetch(
-          `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadiths?chapterNumber=${chapterNumber}`
+          `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadith/${chapterNumber}/1`
         );
-        if (response.ok) {
-          const data = await response.json();
-          setHadiths(data);
-          setCurrentHadith(data[0] || null); // Set the first hadith or null if no hadiths
-        } else {
-          setError("Failed to fetch Hadiths");
+
+        if (response.status === 404) {
+          setError(
+            "Hadith not found. Please check the chapter and hadith numbers."
+          );
+          return;
         }
+
+        if (!response.ok) {
+          setError("Failed to fetch Hadiths");
+          return;
+        }
+
+        const data = await response.json();
+        setHadiths([data]);
+        setCurrentHadith(data);
       } catch (error) {
         setError("Error fetching Hadiths");
+        console.error("Fetch error:", error);
       }
     };
 
@@ -79,7 +88,7 @@ const ChapterDetail = () => {
   return (
     <div className="chapter-detail-container">
       <h2>{chapterName}</h2>
-      {error && <p className="error">{error}</p>} {/* Display error message */}
+      {error && <p className="error">{error}</p>}
       {currentHadith ? (
         <div className="hadith-card">
           <div className="hadith-header">
@@ -110,7 +119,7 @@ const ChapterDetail = () => {
             <div className="raavi">{currentHadith.raavi}</div>
             <div className="black-text-one">{currentHadith.blackTextOne}</div>
             <div className="black-text-two">
-              راوی: {currentHadith.blackTextTwo} ... (حوالہ جات)
+              راوی: {currentHadith.blackTextTwo} ... (حوالہ جات){" "}
               {currentHadith.bookName}
             </div>
             <div className="black-text-two">

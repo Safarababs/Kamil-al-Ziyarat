@@ -8,18 +8,48 @@ const AddHadithForm = () => {
     user: "",
     bookName: "",
     raavi: "",
-    arabicText: "",
-    blackTextOne: "",
-    blackTextTwo: "",
+    mixedText: [],
     englishText: "",
+    arabicText: "",
+    redText: "", // Added redText
   });
 
+  const [showTextInput, setShowTextInput] = useState({
+    urduRed: false,
+    urduBlack: false,
+    arabic: false,
+  });
+
+  const [currentText, setCurrentText] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleTextInputChange = (e) => {
+    setCurrentText(e.target.value);
+  };
+
+  const addTextToMixed = (type) => {
+    const textType = {
+      urduRed: { text: currentText, color: "red", font: "Noto Nastaliq Urdu" },
+      urduBlack: {
+        text: currentText,
+        color: "black",
+        font: "Noto Nastaliq Urdu",
+      },
+      arabic: { text: currentText, color: "blue", font: "Lateef" },
+    };
+
+    setFormData((prevData) => ({
+      ...prevData,
+      mixedText: [...prevData.mixedText, textType[type]],
+    }));
+    setCurrentText(""); // Clear input after adding
+    setShowTextInput({ urduRed: false, urduBlack: false, arabic: false }); // Close input
   };
 
   const handleSubmit = async (e) => {
@@ -30,14 +60,13 @@ const AddHadithForm = () => {
       user,
       bookName,
       raavi,
-      arabicText,
-      blackTextOne,
-      blackTextTwo,
+      mixedText,
       englishText,
+      arabicText,
+      redText, // Added redText here
     } = formData;
 
     const chapterNum = parseInt(chapterNumber, 10);
-
     if (isNaN(chapterNum)) {
       setError("Chapter number must be a valid number");
       return;
@@ -48,11 +77,10 @@ const AddHadithForm = () => {
     try {
       const response = await fetch(
         "https://kamil-al-ziyarat-backend-1.onrender.com/api/add-hadith",
+
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             chapterNumber: chapterNum,
             hadithNumber,
@@ -60,36 +88,35 @@ const AddHadithForm = () => {
             bookName,
             raavi,
             arabicText,
-            blackTextOne,
-            blackTextTwo,
+            mixedText,
             englishText,
+            redText, // Ensure redText is sent
           }),
         }
       );
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Failed to add Hadith:", errorData);
         setError(errorData.message || "Failed to add Hadith");
         return;
       }
 
-      const result = await response.json();
-      console.log("Hadith added:", result);
+      console.log("Hadith added:", await response.json());
+      // Reset the form
       setFormData({
         chapterNumber: "",
         hadithNumber: "",
         user: "",
         bookName: "",
         raavi: "",
-        arabicText: "",
-        blackTextOne: "",
-        blackTextTwo: "",
+        mixedText: [],
         englishText: "",
+        arabicText: "",
+        redText: "", // Reset redText as well
       });
+      setCurrentText("");
       setError(null);
     } catch (error) {
-      console.error("Error submitting form:", error);
       setError("Error submitting form. Please try again later.");
     } finally {
       setIsLoading(false);
@@ -135,16 +162,14 @@ const AddHadithForm = () => {
               required
             />
           </div>
-
           <div className="form-group">
             <input
-              name="blackTextTwo"
-              value={formData.blackTextTwo}
+              name="raavi"
+              value={formData.raavi}
               onChange={handleChange}
               placeholder="Raavi"
             />
           </div>
-
           <div className="form-group">
             <input
               type="text"
@@ -163,31 +188,83 @@ const AddHadithForm = () => {
             value={formData.arabicText}
             onChange={handleChange}
             placeholder="Arabic Text"
-            className="right-align arabic-text"
+            className="arabic-text"
             required
           />
         </div>
+
         <div className="form-group">
           <textarea
-            type="text"
-            name="raavi"
-            value={formData.raavi}
+            name="redText"
+            value={formData.redText}
             onChange={handleChange}
             placeholder="Red Text"
-            className="right-align"
             required
           />
         </div>
-        <div className="form-group">
-          <textarea
-            name="blackTextOne"
-            value={formData.blackTextOne}
-            onChange={handleChange}
-            placeholder="Black Text"
-            className="right-align"
-            required
-          />
+
+        <div className="mixed-text-preview">
+          {formData.mixedText.map((item, index) => (
+            <span
+              key={index}
+              style={{
+                color: item.color,
+                fontFamily: item.font,
+                minHeight: "300px",
+              }}
+            >
+              {item.text}{" "}
+            </span>
+          ))}
         </div>
+
+        <div className="form-group buttons">
+          <div className="add-text-buttons">
+            <button
+              type="button"
+              className="add-urdu-black-btn"
+              onClick={() => setShowTextInput({ urduBlack: true })}
+            >
+              Add Urdu Black Text
+            </button>
+            <button
+              type="button"
+              className="add-arabic-btn"
+              onClick={() => setShowTextInput({ arabic: true })}
+            >
+              Add Arabic Text
+            </button>
+          </div>
+        </div>
+
+        {showTextInput.urduBlack && (
+          <div className="form-group">
+            <input
+              type="text"
+              value={currentText}
+              onChange={handleTextInputChange}
+              placeholder="Your Urdu Black Text Here"
+              className="text-input"
+            />
+            <button type="button" onClick={() => addTextToMixed("urduBlack")}>
+              Add
+            </button>
+          </div>
+        )}
+        {showTextInput.arabic && (
+          <div className="form-group">
+            <input
+              type="text"
+              value={currentText}
+              onChange={handleTextInputChange}
+              placeholder="Your Arabic Text Here"
+              className="text-input"
+            />
+            <button type="button" onClick={() => addTextToMixed("arabic")}>
+              Add
+            </button>
+          </div>
+        )}
 
         <div className="form-group">
           <textarea
@@ -195,12 +272,12 @@ const AddHadithForm = () => {
             value={formData.englishText}
             onChange={handleChange}
             placeholder="English Text"
-            className="arabic-text"
             required
           />
         </div>
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? <div className="spinner"></div> : "Add Hadith"}
+
+        <button type="submit" className="submit-btn" disabled={isLoading}>
+          {isLoading ? <div className="spinner"></div> : "Save and Continue"}
         </button>
         {error && <p className="error">{error}</p>}
       </form>
