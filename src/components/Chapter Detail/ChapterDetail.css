@@ -13,6 +13,35 @@
   margin-bottom: 20px;
 }
 
+.chapter-detail-container .filter-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.chapter-detail-container .filter-container input {
+  padding: 10px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 120px; /* Set a fixed width for consistency */
+}
+
+.chapter-detail-container .filter-container button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.chapter-detail-container .filter-container button:hover {
+  background-color: #0056b3;
+}
+
 .chapter-detail-container .hadith-card {
   background-color: #ffffff;
   border-radius: 8px;

@@ -15,17 +15,14 @@ const DeleteHadithForm = ({ onClose, onDelete }) => {
 
     try {
       const response = await fetch(
-        `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadiths?chapterNumber=${chapterNumber}`
+        `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadith/${chapterNumber}/${hadithNumber}` // Updated URL
       );
 
       if (!response.ok) {
-        throw new Error("Failed to fetch hadiths");
+        throw new Error("Failed to fetch hadith");
       }
 
-      const hadiths = await response.json();
-      const foundHadith = hadiths.find(
-        (h) => h.hadithNumber === Number(hadithNumber)
-      );
+      const foundHadith = await response.json();
 
       if (foundHadith) {
         setHadith(foundHadith);
@@ -49,7 +46,7 @@ const DeleteHadithForm = ({ onClose, onDelete }) => {
 
     try {
       const response = await fetch(
-        `https://kamil-al-ziyarat-backend-1.onrender.com/api/delete-hadith/${hadith._id}`,
+        `https://kamil-al-ziyarat-backend-1.onrender.com/api/delete-hadith/${hadith._id}`, // Updated URL
         {
           method: "DELETE",
         }

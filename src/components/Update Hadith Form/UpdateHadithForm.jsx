@@ -11,12 +11,12 @@ const UpdateHadith = () => {
   const fetchHadith = async () => {
     try {
       const response = await fetch(
-        `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadiths?chapterNumber=${chapterNumber}&hadithNumber=${hadithNumber}`
+        `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadith/${chapterNumber}/${hadithNumber}` // Updated URL
       );
       const data = await response.json();
-      if (data.length) {
-        setHadithData(data[0]);
-        setUpdatedHadith(data[0]); // Set initial values for editing
+      if (data) {
+        setHadithData(data);
+        setUpdatedHadith(data); // Set initial values for editing
         setMessage(""); // Clear previous messages
       } else {
         setMessage("Hadith not found");
@@ -29,7 +29,7 @@ const UpdateHadith = () => {
   const handleUpdate = async () => {
     try {
       const response = await fetch(
-        `https://kamil-al-ziyarat-backend-1.onrender.com/api/update-hadith/${hadithData._id}`,
+        `https://kamil-al-ziyarat-backend-1.onrender.com/api/update-hadith/${hadithData._id}`, // Updated URL
         {
           method: "PUT",
           headers: {
@@ -104,7 +104,7 @@ const UpdateHadith = () => {
           <input
             className="update-hadith-input raavi"
             type="text"
-            value={updatedHadith.raavi}
+            value={updatedHadith.raavi || ""}
             onChange={(e) =>
               setUpdatedHadith({ ...updatedHadith, raavi: e.target.value })
             }
@@ -113,7 +113,7 @@ const UpdateHadith = () => {
           <input
             className="update-hadith-input book-name"
             type="text"
-            value={updatedHadith.bookName}
+            value={updatedHadith.bookName || ""}
             onChange={(e) =>
               setUpdatedHadith({ ...updatedHadith, bookName: e.target.value })
             }
@@ -121,7 +121,7 @@ const UpdateHadith = () => {
           />
           <textarea
             className="update-hadith-textarea arabic-text"
-            value={updatedHadith.arabicText}
+            value={updatedHadith.arabicText || ""}
             onChange={(e) =>
               setUpdatedHadith({ ...updatedHadith, arabicText: e.target.value })
             }
@@ -130,7 +130,7 @@ const UpdateHadith = () => {
           <input
             className="update-hadith-input black-text-one"
             type="text"
-            value={updatedHadith.blackTextOne}
+            value={updatedHadith.blackTextOne || ""}
             onChange={(e) =>
               setUpdatedHadith({
                 ...updatedHadith,
@@ -142,7 +142,7 @@ const UpdateHadith = () => {
           <input
             className="update-hadith-input black-text-two"
             type="text"
-            value={updatedHadith.blackTextTwo}
+            value={updatedHadith.blackTextTwo || ""}
             onChange={(e) =>
               setUpdatedHadith({
                 ...updatedHadith,
@@ -153,7 +153,7 @@ const UpdateHadith = () => {
           />
           <textarea
             className="update-hadith-textarea english-text"
-            value={updatedHadith.englishText}
+            value={updatedHadith.englishText || ""}
             onChange={(e) =>
               setUpdatedHadith({
                 ...updatedHadith,

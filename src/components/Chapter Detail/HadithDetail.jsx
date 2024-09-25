@@ -68,7 +68,7 @@ const HadithDetail = () => {
 
     try {
       const response = await fetch(
-        `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadith/${chapterNumber}/${previousHadithNumber}`
+        `http://localhost:5000/api/get-hadith/${chapterNumber}/${previousHadithNumber}`
       );
 
       if (response.ok) {

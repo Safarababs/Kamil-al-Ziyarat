@@ -11,7 +11,7 @@ const AddHadithForm = () => {
     mixedText: [],
     englishText: "",
     arabicText: "",
-    redText: "", // Added redText
+    redText: "",
   });
 
   const [showTextInput, setShowTextInput] = useState({
@@ -48,8 +48,8 @@ const AddHadithForm = () => {
       ...prevData,
       mixedText: [...prevData.mixedText, textType[type]],
     }));
-    setCurrentText(""); // Clear input after adding
-    setShowTextInput({ urduRed: false, urduBlack: false, arabic: false }); // Close input
+    setCurrentText("");
+    setShowTextInput({ urduRed: false, urduBlack: false, arabic: false });
   };
 
   const handleSubmit = async (e) => {
@@ -63,7 +63,7 @@ const AddHadithForm = () => {
       mixedText,
       englishText,
       arabicText,
-      redText, // Added redText here
+      redText,
     } = formData;
 
     const chapterNum = parseInt(chapterNumber, 10);
@@ -77,7 +77,6 @@ const AddHadithForm = () => {
     try {
       const response = await fetch(
         "https://kamil-al-ziyarat-backend-1.onrender.com/api/add-hadith",
-
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -90,7 +89,7 @@ const AddHadithForm = () => {
             arabicText,
             mixedText,
             englishText,
-            redText, // Ensure redText is sent
+            redText,
           }),
         }
       );
@@ -102,7 +101,6 @@ const AddHadithForm = () => {
       }
 
       console.log("Hadith added:", await response.json());
-      // Reset the form
       setFormData({
         chapterNumber: "",
         hadithNumber: "",
@@ -112,7 +110,7 @@ const AddHadithForm = () => {
         mixedText: [],
         englishText: "",
         arabicText: "",
-        redText: "", // Reset redText as well
+        redText: "",
       });
       setCurrentText("");
       setError(null);
@@ -203,21 +201,6 @@ const AddHadithForm = () => {
           />
         </div>
 
-        <div className="mixed-text-preview">
-          {formData.mixedText.map((item, index) => (
-            <span
-              key={index}
-              style={{
-                color: item.color,
-                fontFamily: item.font,
-                minHeight: "300px",
-              }}
-            >
-              {item.text}{" "}
-            </span>
-          ))}
-        </div>
-
         <div className="form-group buttons">
           <div className="add-text-buttons">
             <button
@@ -239,6 +222,9 @@ const AddHadithForm = () => {
 
         {showTextInput.urduBlack && (
           <div className="form-group">
+            <button type="button" onClick={() => addTextToMixed("urduBlack")}>
+              Add
+            </button>
             <input
               type="text"
               value={currentText}
@@ -246,13 +232,13 @@ const AddHadithForm = () => {
               placeholder="Your Urdu Black Text Here"
               className="text-input"
             />
-            <button type="button" onClick={() => addTextToMixed("urduBlack")}>
-              Add
-            </button>
           </div>
         )}
         {showTextInput.arabic && (
           <div className="form-group">
+            <button type="button" onClick={() => addTextToMixed("arabic")}>
+              Add
+            </button>
             <input
               type="text"
               value={currentText}
@@ -260,11 +246,23 @@ const AddHadithForm = () => {
               placeholder="Your Arabic Text Here"
               className="text-input"
             />
-            <button type="button" onClick={() => addTextToMixed("arabic")}>
-              Add
-            </button>
           </div>
         )}
+
+        <div className="mixed-text-preview">
+          {formData.mixedText.map((item, index) => (
+            <span
+              key={index}
+              style={{
+                color: item.color,
+                fontFamily: item.font,
+                minHeight: "300px",
+              }}
+            >
+              {item.text}{" "}
+            </span>
+          ))}
+        </div>
 
         <div className="form-group">
           <textarea
