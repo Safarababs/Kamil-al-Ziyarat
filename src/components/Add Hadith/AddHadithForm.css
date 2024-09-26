@@ -1,15 +1,13 @@
-/* Container for the form */
 .add-hadith-form-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px; /* Adjusted padding for mobile screens */
+  padding: 10px;
 }
 
-/* Form styling */
-.add-hadith-form {
+.add-hadith-form-container .add-hadith-form {
   width: 100%;
-  max-width: 1000px; /* Max-width to fit well on mobile screens */
+  max-width: 1000px;
   margin: 0 auto;
   padding: 15px;
   border: 1px solid #ddd;
@@ -18,79 +16,52 @@
   background-color: #f9f9f9;
 }
 
-/* Form group for layout of inputs and labels */
-.add-hadith-form-container .add-hadith-form .form-group {
-  margin-bottom: 15px; /* Increased margin for better spacing */
+.add-hadith-form-container .form-group {
+  margin-bottom: 15px;
   display: flex;
   flex-direction: column;
 }
 
-/* Layout for inputs that need to be in a row */
-.add-hadith-form-container .add-hadith-form .row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px; /* Spacing between inputs */
+.add-hadith-form-container .short-input {
+  max-width: 120px;
 }
 
-/* Styling for individual inputs in a row */
-.add-hadith-form-container .add-hadith-form .row .form-group {
-  flex: 1;
-  min-width: 120px;
-}
-
-/* Styling for shorter inputs */
-.add-hadith-form-container .add-hadith-form .short-input {
-  max-width: 120px; /* Short input width */
-}
-
-/* Input styling */
-.add-hadith-form-container .add-hadith-form input,
-.add-hadith-form-container .add-hadith-form textarea,
-.add-hadith-form-container .add-hadith-form select {
+.add-hadith-form-container input,
+.add-hadith-form-container textarea,
+.add-hadith-form-container select {
   width: 100%;
-  padding: 15px; /* Increased height */
+  padding: 15px;
   margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-  font-size: 1rem; /* Font size set to 1rem */
+  font-size: 1rem;
 }
 
-/* Specific styling for textarea */
-.add-hadith-form-container .add-hadith-form textarea {
-  min-height: 300px; /* Set minimum height to 300px */
+.add-hadith-form-container textarea {
+  min-height: 300px;
   font-family: "Noto Nastaliq Urdu", serif;
 }
 
-/* Specific styling for text inputs for adding Urdu Black and Arabic Text */
-.add-hadith-form-container .add-hadith-form .text-input {
-  min-height: 300px; /* Increased height for text input fields */
+.add-hadith-form-container .text-input {
+  min-height: 300px;
 }
 
-/* Arabic text styling */
-.add-hadith-form-container .add-hadith-form .arabic-text {
-  font-family: "Lateef", "Amiri", serif; /* Ensure both fonts are included */
-  font-size: 1.2rem; /* Adjust font size if necessary */
-  direction: rtl; /* Set text direction to right-to-left */
+.add-hadith-form-container .arabic-text {
+  font-family: "Lateef", "Amiri", serif;
+  font-size: 1.2rem;
+  direction: rtl;
   color: blue;
 }
 
-/* Arabic text styling */
-.add-hadith-form-container .add-hadith-form .red-text {
-  font-family: "Noto Nastaliq Urdu", serif; /* Ensure both fonts are included */
-  font-size: 1.2rem; /* Adjust font size if necessary */
-  direction: rtl; /* Set text direction to right-to-left */
+.add-hadith-form-container .red-text {
+  font-family: "Noto Nastaliq Urdu", serif;
+  font-size: 1.2rem;
   color: red;
 }
 
-/* Dropdown specific styles */
-.add-hadith-form-container .add-hadith-form select {
-  width: 100%;
-}
-
-/* Button styling */
-.add-hadith-form-container .add-hadith-form button {
-  padding: 15px 15px; /* Increased button height */
+.add-hadith-form-container button {
+  padding: 15px 15px;
   margin: 10px 0;
   border: none;
   border-radius: 4px;
@@ -100,45 +71,87 @@
   font-size: 16px;
   position: relative;
   text-align: center;
-  width: 100%; /* Full width for buttons */
+  width: 100%;
+  transition: background-color 0.3s;
 }
 
-.add-hadith-form-container .add-hadith-form button:disabled {
-  background-color: #aaa;
-  cursor: not-allowed;
-}
-
-.add-hadith-form-container .add-hadith-form button:hover {
+.add-hadith-form-container button:hover {
   background-color: #0056b3;
 }
 
-/* Error message styling */
-.add-hadith-form-container .add-hadith-form .error {
+.add-hadith-form-container .error {
   color: red;
   margin-top: 10px;
 }
 
-/* Spinner styling */
-.add-hadith-form-container .spinner-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+.add-hadith-form-container .mixed-text-preview {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+  min-height: 150px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  direction: rtl;
+  overflow-wrap: break-word;
 }
 
-.add-hadith-form-container .spinner {
-  border: 8px solid rgba(0, 0, 0, 0.1);
-  border-left: 8px solid #007bff;
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.button-container button {
+  flex: 1;
+  margin: 0 5px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.back-btn {
+  background-color: #f44336;
+}
+
+.continue-btn,
+button[type="submit"] {
+  background-color: #4caf50;
+}
+
+.back-btn:hover {
+  background-color: #d32f2f;
+}
+
+.continue-btn:hover,
+button[type="submit"]:hover {
+  background-color: #388e3c;
+}
+
+.add-text-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  .add-hadith-form-container .short-input {
+    max-width: 100%;
+  }
+}
+
+.spinner {
+  border: 3px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
+  border-top: 3px solid #fff;
+  width: 16px;
+  height: 16px;
+  animation: spin 0.6s linear infinite;
+  display: inline-block;
+  margin-left: 5px;
 }
 
 @keyframes spin {
@@ -150,51 +163,7 @@
   }
 }
 
-/* Right-align class for specific inputs */
-.add-hadith-form-container .right-align {
-  text-align: right;
-  direction: rtl;
-}
-
-/* Mobile-specific adjustments */
-@media (max-width: 600px) {
-  .add-hadith-form-container .add-hadith-form .row {
-    flex-direction: column; /* Stack inputs vertically on mobile */
-  }
-
-  .add-hadith-form-container .add-hadith-form .row .form-group {
-    min-width: auto; /* Remove min-width for smaller screens */
-  }
-
-  .add-hadith-form-container .add-hadith-form .short-input {
-    max-width: 100%; /* Full width for short inputs on mobile */
-  }
-}
-
-.add-hadith-form-container .mixed-text-preview {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 10px 0;
-  min-height: 300px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-}
-
-/* Additional classes for buttons */
-.add-hadith-form-container .add-hadith-form .add-urdu-black-btn,
-.add-hadith-form-container .add-hadith-form .add-arabic-btn {
-  background-color: #007bff;
-  margin-right: 5px; /* Spacing between buttons */
-}
-
-.add-hadith-form-container .add-hadith-form .add-urdu-black-btn:hover,
-.add-hadith-form-container .add-hadith-form .add-arabic-btn:hover {
-  background-color: #0056b3;
-}
-
-/* Styling for button groups */
-.add-hadith-form-container .add-hadith-form .add-text-buttons {
-  display: flex;
-  justify-content: space-between; /* Space out buttons evenly */
-  margin-bottom: 10px; /* Space between button group and next element */
+.success {
+  color: green;
+  margin-top: 10px;
 }
