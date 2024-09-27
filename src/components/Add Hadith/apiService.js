@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./AddHadithForm.css";
 
 const API_BASE_URL = "https://kamil-al-ziyarat-backend-1.onrender.com/api";
-// const API_BASE_URL = "http://localhost:5000/api";
 
 const AddHadithForm = () => {
   const [formData, setFormData] = useState({
@@ -43,14 +42,12 @@ const AddHadithForm = () => {
         color: "black",
         fontSize: "1.2rem",
         fontFamily: "'Noto Nastaliq Urdu', serif",
-        font: "Noto Nastaliq Urdu",
       },
       arabic: {
         text: currentText,
         color: "blue",
         fontSize: "1.8rem",
         fontFamily: "'Lateef', 'Amiri', serif",
-        font: "Lateef",
       },
     };
 
@@ -61,12 +58,6 @@ const AddHadithForm = () => {
 
     setCurrentText("");
     setShowTextInput({ urduBlack: false, arabic: false });
-  };
-
-  const handleMixedTextChange = (e, index) => {
-    const newMixedText = [...formData.mixedText];
-    newMixedText[index].text = e.target.value;
-    setFormData({ ...formData, mixedText: newMixedText });
   };
 
   const handleNextStep = () => {
@@ -86,10 +77,6 @@ const AddHadithForm = () => {
       setError("Raavi is required.");
       return;
     }
-    if (step === 5 && !formData.bookName) {
-      setError("Book Name is required.");
-      return;
-    }
     if (step === 6 && !formData.arabicText) {
       setError("Arabic text is required.");
       return;
@@ -98,14 +85,6 @@ const AddHadithForm = () => {
       setError("English text is required.");
       return;
     }
-
-    // Move to summary step
-    if (step === 8) {
-      setError("");
-      handleSubmit();
-      return;
-    }
-
     setError("");
     setStep(step + 1);
   };
@@ -148,8 +127,6 @@ const AddHadithForm = () => {
       const response = await addHadith(formData); // This is the internal function
       console.log("Hadith submitted:", response);
       setIsSubmitted(true);
-
-      // Reset form data
       setFormData({
         user: "",
         chapterNumber: "",
@@ -160,12 +137,6 @@ const AddHadithForm = () => {
         arabicText: "",
         englishText: "",
       });
-
-      // Navigate back after a brief delay
-      setTimeout(() => {
-        setIsSubmitted(false); // Hide success message
-        setStep(1); // Reset to the first step
-      }, 1000); // 2 seconds delay
     } catch (error) {
       console.error("Error submitting hadith:", error.message);
       setError("Failed to submit Hadith. Please try again.");
@@ -279,8 +250,7 @@ const AddHadithForm = () => {
                 name="bookName"
                 value={formData.bookName}
                 onChange={handleChange}
-                placeholder="Book Name"
-                required
+                placeholder="Book Name (optional)"
               />
             </div>
             <div className="button-container">
@@ -349,7 +319,6 @@ const AddHadithForm = () => {
                   onClick={() =>
                     setShowTextInput({ ...showTextInput, urduBlack: true })
                   }
-                  style={{ backgroundColor: "green" }}
                 >
                   Add Urdu Black
                 </button>
@@ -358,7 +327,6 @@ const AddHadithForm = () => {
                   onClick={() =>
                     setShowTextInput({ ...showTextInput, arabic: true })
                   }
-                  style={{ backgroundColor: "blue" }}
                 >
                   Add Arabic Text
                 </button>
@@ -376,7 +344,7 @@ const AddHadithForm = () => {
                     type="button"
                     onClick={() => addTextToMixed("urduBlack")}
                   >
-                    Add Text
+                    Add to Mixed Text
                   </button>
                 </div>
               )}
@@ -393,26 +361,23 @@ const AddHadithForm = () => {
                     type="button"
                     onClick={() => addTextToMixed("arabic")}
                   >
-                    Add Text
+                    Add to Mixed Text
                   </button>
                 </div>
               )}
 
               <div className="mixed-text-container">
                 {formData.mixedText.map((text, index) => (
-                  <div key={index} style={{ marginBottom: "10px" }}>
-                    <textarea
-                      value={text.text}
-                      onChange={(e) => handleMixedTextChange(e, index)}
-                      style={{
-                        color: text.color,
-                        fontSize: text.fontSize,
-                        fontFamily: text.fontFamily,
-                        width: "100%",
-                        minHeight: "50px",
-                      }}
-                    />
-                  </div>
+                  <p
+                    key={index}
+                    style={{
+                      color: text.color,
+                      fontSize: text.fontSize,
+                      fontFamily: text.fontFamily,
+                    }}
+                  >
+                    {text.text}
+                  </p>
                 ))}
               </div>
             </div>
@@ -421,67 +386,7 @@ const AddHadithForm = () => {
               <button type="button" onClick={handleBackStep}>
                 Back
               </button>
-              <button type="button" onClick={() => setStep(9)}>
-                Review Again
-              </button>
-            </div>
-          </>
-        )}
-        {step === 9 && (
-          <>
-            <h3>Review Your Hadith</h3>
-            <div className="summary-section">
-              <h4>User:</h4>
-              <p>{formData.user}</p>
-            </div>
-            <div className="summary-section">
-              <h4>Chapter No:</h4>
-              <p>{formData.chapterNumber}</p>
-            </div>
-            <div className="summary-section">
-              <h4>Hadith No:</h4>
-              <p>{formData.hadithNumber}</p>
-            </div>
-            <div className="summary-section">
-              <h4>Raavi:</h4>
-              <p>{formData.raavi}</p>
-            </div>
-            <div className="summary-section">
-              <h4>Book Name:</h4>
-              <p>{formData.bookName}</p>
-            </div>
-            <div className="summary-section">
-              <h4>Arabic Text:</h4>
-              <p>{formData.arabicText}</p>
-            </div>
-            <div className="summary-section">
-              <h4>English Text:</h4>
-              <p>{formData.englishText}</p>
-            </div>
-            <div className="summary-section">
-              <h4>Mixed Text:</h4>
-              {formData.mixedText.map((text, index) => (
-                <p
-                  key={index}
-                  style={{
-                    color: text.color,
-                    fontSize: text.fontSize,
-                    fontFamily: text.fontFamily,
-                  }}
-                >
-                  {text.text}
-                </p>
-              ))}
-            </div>
-            <div className="button-container">
-              <button
-                type="button"
-                onClick={() => setStep(8)}
-                className="back-btn"
-              >
-                Back to Edit
-              </button>
-              <button type="button" onClick={handleSubmit} disabled={isLoading}>
+              <button type="submit" disabled={isLoading}>
                 {isLoading ? <span className="spinner"></span> : "Submit"}
               </button>
             </div>

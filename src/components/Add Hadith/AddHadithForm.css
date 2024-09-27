@@ -133,8 +133,29 @@ button[type="submit"]:hover {
 
 .add-text-buttons {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: space-around;
   margin-bottom: 20px;
+
+  gap: 10px;
+}
+
+.summary-section {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 10px 0;
+  background-color: #e9f7ef;
+}
+
+.summary-section h4 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.summary-section p {
+  margin: 5px 0;
+  color: #555;
 }
 
 @media (max-width: 600px) {

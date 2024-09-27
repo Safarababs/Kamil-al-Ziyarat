@@ -7,6 +7,7 @@ const Home = () => {
   const [hadiths, setHadiths] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [dotCount, setDotCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,24 +15,30 @@ const Home = () => {
       try {
         // Fetch chapters
         const chapterResponse = await fetch(
-          "https://kamil-al-ziyarat-backend-1.onrender.com/api/get-chapters" // Updated URL
+          "https://kamil-al-ziyarat-backend-1.onrender.com/api/get-chapters"
         );
         if (!chapterResponse.ok) {
           throw new Error(`HTTP error! Status: ${chapterResponse.status}`);
         }
         const chapterData = await chapterResponse.json();
-
-        // Fetch all hadiths
-        const hadithResponse = await fetch(
-          "https://kamil-al-ziyarat-backend-1.onrender.com/api/get-all-hadiths" // Updated URL
-        );
-        if (!hadithResponse.ok) {
-          throw new Error(`HTTP error! Status: ${hadithResponse.status}`);
-        }
-        const hadithData = await hadithResponse.json();
-
         setChapters(chapterData);
-        setHadiths(hadithData);
+
+        // Check local storage for hadiths
+        const cachedHadiths = localStorage.getItem("hadiths");
+        if (cachedHadiths) {
+          setHadiths(JSON.parse(cachedHadiths));
+        } else {
+          // Fetch all hadiths if not in local storage
+          const hadithResponse = await fetch(
+            "https://kamil-al-ziyarat-backend-1.onrender.com/api/get-all-hadiths"
+          );
+          if (!hadithResponse.ok) {
+            throw new Error(`HTTP error! Status: ${hadithResponse.status}`);
+          }
+          const hadithData = await hadithResponse.json();
+          setHadiths(hadithData);
+          localStorage.setItem("hadiths", JSON.stringify(hadithData)); // Cache hadiths
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
         setError(`Error fetching data: ${error.message}`);
@@ -41,10 +48,21 @@ const Home = () => {
     };
 
     fetchData();
+
+    // Dot animation effect
+    const dotInterval = setInterval(() => {
+      setDotCount((prevCount) => (prevCount + 1) % 4);
+    }, 100); // Change dot count every 100ms
+
+    return () => clearInterval(dotInterval); // Cleanup interval on component unmount
   }, []);
 
   if (loading) {
-    return <div className="home">Loading...</div>;
+    return (
+      <div className="home" style={{ direction: "ltr" }}>
+        Loading{".".repeat(dotCount)} {/* Add dots based on the dotCount */}
+      </div>
+    );
   }
 
   if (error) {
@@ -52,8 +70,6 @@ const Home = () => {
   }
 
   const handleChapterClick = (chapterNumber) => {
-    // This function can be used to navigate to a chapter detail page if needed
-    // For now, we can filter hadiths here if needed
     const filteredHadiths = hadiths.filter(
       (hadith) => hadith.chapterNumber === chapterNumber
     );

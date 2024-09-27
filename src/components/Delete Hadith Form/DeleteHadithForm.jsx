@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./DeleteHadithForm.css";
 
 const DeleteHadithForm = ({ onClose, onDelete }) => {
   const [chapterNumber, setChapterNumber] = useState("");

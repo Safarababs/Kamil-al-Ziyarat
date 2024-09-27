@@ -8,15 +8,21 @@ const UpdateHadith = () => {
   const [updatedHadith, setUpdatedHadith] = useState({});
   const [message, setMessage] = useState("");
 
+  // New state for managing mixed text
+  const [mixedText, setMixedText] = useState([]);
+  const [currentText, setCurrentText] = useState("");
+  const [textType, setTextType] = useState(""); // To track type of text (Urdu/Arabic)
+
   const fetchHadith = async () => {
     try {
       const response = await fetch(
-        `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadith/${chapterNumber}/${hadithNumber}` // Updated URL
+        `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadith/${chapterNumber}/${hadithNumber}`
       );
       const data = await response.json();
       if (data) {
         setHadithData(data);
-        setUpdatedHadith(data); // Set initial values for editing
+        setUpdatedHadith(data);
+        setMixedText(data.mixedText || []); // Set mixed text for editing
         setMessage(""); // Clear previous messages
       } else {
         setMessage("Hadith not found");
@@ -27,15 +33,16 @@ const UpdateHadith = () => {
   };
 
   const handleUpdate = async () => {
+    const fullUpdatedHadith = { ...updatedHadith, mixedText }; // Include mixed text in update
     try {
       const response = await fetch(
-        `https://kamil-al-ziyarat-backend-1.onrender.com/api/update-hadith/${hadithData._id}`, // Updated URL
+        `https://kamil-al-ziyarat-backend-1.onrender.com/api/update-hadith/${hadithData._id}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(updatedHadith),
+          body: JSON.stringify(fullUpdatedHadith),
         }
       );
       const result = await response.json();
@@ -48,6 +55,32 @@ const UpdateHadith = () => {
     } catch (error) {
       setMessage("Error updating Hadith");
     }
+  };
+
+  const handleTextInputChange = (e) => {
+    setCurrentText(e.target.value);
+  };
+
+  const addTextToMixed = (type) => {
+    const textEntry = {
+      text: currentText,
+      color: type === "urduBlack" ? "black" : "blue",
+      fontSize: type === "urduBlack" ? "1.2rem" : "1.8rem",
+      fontFamily:
+        type === "urduBlack"
+          ? "'Noto Nastaliq Urdu', serif"
+          : "'Lateef', 'Amiri', serif",
+    };
+
+    setMixedText([...mixedText, textEntry]);
+    setCurrentText("");
+    setTextType(""); // Reset text type
+  };
+
+  const handleMixedTextChange = (e, index) => {
+    const newMixedText = [...mixedText];
+    newMixedText[index].text = e.target.value;
+    setMixedText(newMixedText);
   };
 
   return (
@@ -127,30 +160,6 @@ const UpdateHadith = () => {
             }
             placeholder="Arabic Text"
           />
-          <input
-            className="update-hadith-input black-text-one"
-            type="text"
-            value={updatedHadith.blackTextOne || ""}
-            onChange={(e) =>
-              setUpdatedHadith({
-                ...updatedHadith,
-                blackTextOne: e.target.value,
-              })
-            }
-            placeholder="Red Text"
-          />
-          <input
-            className="update-hadith-input black-text-two"
-            type="text"
-            value={updatedHadith.blackTextTwo || ""}
-            onChange={(e) =>
-              setUpdatedHadith({
-                ...updatedHadith,
-                blackTextTwo: e.target.value,
-              })
-            }
-            placeholder="Black Text Two"
-          />
           <textarea
             className="update-hadith-textarea english-text"
             value={updatedHadith.englishText || ""}
@@ -163,9 +172,52 @@ const UpdateHadith = () => {
             placeholder="English Text"
           />
 
-          {message.includes("successfully") && (
-            <p className="update-hadith-message">{message}</p>
+          <div>
+            <button type="button" onClick={() => setTextType("urduBlack")}>
+              Add Urdu Black
+            </button>
+            <button type="button" onClick={() => setTextType("arabic")}>
+              Add Arabic Text
+            </button>
+          </div>
+
+          {textType && (
+            <div>
+              <textarea
+                value={currentText}
+                onChange={handleTextInputChange}
+                placeholder={`Your ${
+                  textType === "urduBlack" ? "Urdu" : "Arabic"
+                } Text Here`}
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  addTextToMixed(textType);
+                }}
+              >
+                Add to Mixed Text
+              </button>
+            </div>
           )}
+
+          <div className="mixed-text-container">
+            {mixedText.map((text, index) => (
+              <div key={index} style={{ marginBottom: "10px" }}>
+                <textarea
+                  value={text.text}
+                  onChange={(e) => handleMixedTextChange(e, index)}
+                  style={{
+                    color: text.color,
+                    fontSize: text.fontSize,
+                    fontFamily: text.fontFamily,
+                    width: "100%",
+                    minHeight: "50px",
+                  }}
+                />
+              </div>
+            ))}
+          </div>
 
           <button
             className="update-hadith-button update-button"

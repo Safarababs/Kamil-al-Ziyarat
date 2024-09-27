@@ -7,7 +7,7 @@ const UserManagementPage = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
-    navigate("/login"); // Redirect to login page
+    navigate("/"); // Redirect to login page
   };
 
   return (
@@ -19,12 +19,12 @@ const UserManagementPage = () => {
       >
         Add Hadith
       </button>
-      <button
+      {/* <button
         className="update-hadith-button"
         onClick={() => navigate("/update-hadith")}
       >
         Update Hadith
-      </button>
+      </button> */}
       <button
         className="delete-hadith-button"
         onClick={() => navigate("/delete-hadith")}
