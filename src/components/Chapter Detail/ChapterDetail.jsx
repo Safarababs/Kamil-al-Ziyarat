@@ -15,8 +15,6 @@ const ChapterDetail = () => {
   const [currentHadithIndex, setCurrentHadithIndex] = useState(0);
   const [chapterName, setChapterName] = useState("");
   const [error, setError] = useState(null);
-  const [inputChapter, setInputChapter] = useState(chapterNumber);
-  const [inputHadith, setInputHadith] = useState("1");
 
   useEffect(() => {
     const fetchHadiths = async () => {
@@ -65,21 +63,6 @@ const ChapterDetail = () => {
     fetchChapterName();
   }, [chapterNumber]);
 
-  const handleSearch = () => {
-    const index = hadiths.findIndex(
-      (hadith) =>
-        hadith.chapterNumber === parseInt(inputChapter) &&
-        hadith.hadithNumber === inputHadith
-    );
-    if (index !== -1) {
-      setCurrentHadithIndex(index);
-    } else {
-      setError(
-        "Hadith not found. Please check the chapter and hadith numbers."
-      );
-    }
-  };
-
   const handleNext = () => {
     if (currentHadithIndex < hadiths.length - 1) {
       setCurrentHadithIndex(currentHadithIndex + 1);
@@ -98,24 +81,10 @@ const ChapterDetail = () => {
 
   return (
     <div className="chapter-detail-container">
-      <h2>{chapterName}</h2>
+      <h2>
+        {chapterNumber}. {chapterName}
+      </h2>
       {error && <p className="error">{error}</p>}
-
-      <div className="filter-container">
-        <input
-          type="number"
-          value={inputChapter}
-          onChange={(e) => setInputChapter(e.target.value)}
-          placeholder="Chapter Number"
-        />
-        <input
-          type="text"
-          value={inputHadith}
-          onChange={(e) => setInputHadith(e.target.value)}
-          placeholder="Hadith Number"
-        />
-        <button onClick={handleSearch}>Search</button>
-      </div>
 
       {currentHadith ? (
         <div className="hadith-card">
@@ -128,8 +97,7 @@ const ChapterDetail = () => {
               <FaAngleLeft /> Prev
             </button>
             <div className="hadith-number">
-              <h2>Chapter No: {currentHadith.chapterNumber}</h2> Hadith No{" "}
-              {currentHadith.hadithNumber}
+              No: {currentHadith.hadithNumber}/ {currentHadith.chapterNumber}
             </div>
             <button
               className="nav-button"
@@ -141,7 +109,7 @@ const ChapterDetail = () => {
           </div>
           <div className="hadith-content">
             <div className="arabic-text">{currentHadith.arabicText}</div>
-            <div className="raavi">{currentHadith.raavi}</div>
+            <div className="raavi">{currentHadith.redText}</div>
             {currentHadith.mixedText &&
               currentHadith.mixedText.map((item, index) => (
                 <div
@@ -153,7 +121,7 @@ const ChapterDetail = () => {
               ))}
             <div className="black-text-one">{currentHadith.blackTextOne}</div>
             <div className="black-text-two">
-              راوی: {currentHadith.blackTextTwo} ... (حوالہ جات){" "}
+              راوی: {currentHadith.raavi} ... (حوالہ جات){" "}
               {currentHadith.bookName}
             </div>
             <div className="black-text-two">

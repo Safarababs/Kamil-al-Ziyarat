@@ -19,12 +19,12 @@ const UserManagementPage = () => {
       >
         Add Hadith
       </button>
-      {/* <button
+      <button
         className="update-hadith-button"
         onClick={() => navigate("/update-hadith")}
       >
         Update Hadith
-      </button> */}
+      </button>
       <button
         className="delete-hadith-button"
         onClick={() => navigate("/delete-hadith")}

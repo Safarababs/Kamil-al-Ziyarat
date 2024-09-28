@@ -8,9 +8,11 @@
 }
 
 .chapter-detail-container h2 {
-  font-size: 24px;
+  font-size: 10px;
   color: #333;
   margin-bottom: 20px;
+  font-family: "Noto Nastaliq Urdu", serif;
+  direction: rtl;
 }
 
 .chapter-detail-container .filter-container {
@@ -64,8 +66,8 @@
 }
 
 .chapter-detail-container .hadith-card .hadith-header .hadith-number {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 1.2rem;
+  /* font-weight: bold; */
   color: #333;
   text-align: center;
   flex: 1;
@@ -80,7 +82,7 @@
   padding: 10px 15px;
   border-radius: 5px;
   transition: background-color 0.3s, transform 0.2s;
-  width: 10%;
+  width: auto;
 }
 
 .chapter-detail-container .hadith-card .hadith-header .nav-button:hover {

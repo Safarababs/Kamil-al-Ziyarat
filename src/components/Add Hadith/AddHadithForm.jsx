@@ -11,6 +11,7 @@ const AddHadithForm = () => {
     hadithNumber: "",
     bookName: "",
     raavi: "",
+    redText: "",
     mixedText: [],
     arabicText: "",
     englishText: "",
@@ -90,17 +91,21 @@ const AddHadithForm = () => {
       setError("Book Name is required.");
       return;
     }
-    if (step === 6 && !formData.arabicText) {
+    if (step === 6 && !formData.redText) {
+      setError("red Text is required.");
+      return;
+    }
+    if (step === 7 && !formData.arabicText) {
       setError("Arabic text is required.");
       return;
     }
-    if (step === 7 && !formData.englishText) {
+    if (step === 8 && !formData.englishText) {
       setError("English text is required.");
       return;
     }
 
     // Move to summary step
-    if (step === 8) {
+    if (step === 10) {
       setError("");
       handleSubmit();
       return;
@@ -298,6 +303,29 @@ const AddHadithForm = () => {
           <>
             <div className="form-group">
               <textarea
+                name="redText"
+                value={formData.redText}
+                onChange={handleChange}
+                placeholder="Red Text"
+                required
+                rows="4"
+              />
+            </div>
+            <div className="button-container">
+              <button type="button" onClick={handleBackStep}>
+                Back
+              </button>
+              <button type="button" onClick={handleNextStep}>
+                Save and Continue
+              </button>
+            </div>
+          </>
+        )}
+
+        {step === 7 && (
+          <>
+            <div className="form-group">
+              <textarea
                 name="arabicText"
                 value={formData.arabicText}
                 onChange={handleChange}
@@ -317,7 +345,7 @@ const AddHadithForm = () => {
           </>
         )}
 
-        {step === 7 && (
+        {step === 8 && (
           <>
             <div className="form-group">
               <textarea
@@ -340,7 +368,7 @@ const AddHadithForm = () => {
           </>
         )}
 
-        {step === 8 && (
+        {step === 9 && (
           <>
             <div className="form-group">
               <div className="add-text-buttons">
@@ -421,13 +449,13 @@ const AddHadithForm = () => {
               <button type="button" onClick={handleBackStep}>
                 Back
               </button>
-              <button type="button" onClick={() => setStep(9)}>
+              <button type="button" onClick={() => setStep(10)}>
                 Review Again
               </button>
             </div>
           </>
         )}
-        {step === 9 && (
+        {step === 10 && (
           <>
             <h3>Review Your Hadith</h3>
             <div className="summary-section">
@@ -449,6 +477,10 @@ const AddHadithForm = () => {
             <div className="summary-section">
               <h4>Book Name:</h4>
               <p>{formData.bookName}</p>
+            </div>
+            <div className="summary-section">
+              <h4>Red Text:</h4>
+              <p>{formData.redText}</p>
             </div>
             <div className="summary-section">
               <h4>Arabic Text:</h4>

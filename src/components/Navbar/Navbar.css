@@ -1,7 +1,7 @@
 /* Navbar Styling */
-.navbar {
+.unique-navbar {
   background-color: #007bff; /* Navbar background color */
-  padding: 10px 20px;
+  padding: 10px 0; /* Padding only on top and bottom */
   position: fixed;
   width: 100%;
   top: 0;
@@ -12,9 +12,9 @@
   z-index: 1000;
 }
 
-.navbar-list {
+.unique-navbar .unique-navbar-list {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-around; /* Even spacing between items */
   width: 100%;
   max-width: 800px;
   list-style: none;
@@ -22,115 +22,192 @@
   padding: 0;
 }
 
-.navbar-item {
-  flex: 1;
-  text-align: center;
+.unique-navbar .unique-navbar-item {
+  flex: 1; /* Allow equal width for each item */
+  display: flex; /* Make the item a flex container */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
 }
 
-.navbar-link {
+.unique-navbar .unique-navbar-link,
+.unique-navbar .unique-navbar-search-button {
   color: white;
   text-decoration: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5px; /* Add padding for better spacing */
-}
-
-.navbar-link button {
-  background: none; /* Remove button background */
-  border: none; /* Remove button border */
-  color: white; /* Text color */
+  padding: 10px; /* Adjusted padding for uniformity */
   cursor: pointer; /* Pointer on hover */
-  padding: 0; /* Reset padding to match other links */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  transition: color 0.3s ease; /* Smooth color transition */
 }
 
-.navbar-icon {
+.unique-navbar .unique-navbar-search-button {
+  background-color: transparent; /* No background */
+  border: none; /* No border */
+}
+
+.unique-navbar .unique-navbar-icon {
   font-size: 24px;
 }
 
-.navbar-text {
+.unique-navbar .unique-navbar-text {
   margin-top: 5px;
   font-size: 12px;
 }
 
-.navbar-link:hover,
-.navbar-link button:hover {
+.unique-navbar .unique-navbar-link:hover,
+.unique-navbar .unique-navbar-search-button:hover {
   color: #e0e0e0; /* Hover color for both links and buttons */
 }
 
 /* Adjust existing styles if needed */
-@media (max-width: 768px) {
-  .navbar-text {
-    display: none; /* Hide text on smaller screens */
-  }
-}
-
-.search-modal {
+/* Search Modal Styling */
+.unique-navbar .unique-search-modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.85); /* Dark overlay for focus */
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
 }
 
-.search-modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
+.unique-navbar .unique-search-modal-content {
+  background: #ffffff; /* White background */
+  padding: 30px; /* Adequate padding */
+  border-radius: 12px; /* Rounded corners */
   width: 90%;
-  max-width: 400px;
-  position: relative;
+  max-width: 400px; /* Consistent max width */
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3); /* Softer shadow */
+  transform: translateY(-20px); /* Slightly above at first */
+  opacity: 0; /* Initially hidden */
+  animation: fadeInUp 0.4s forwards, popIn 0.3s forwards, bounceIn 0.5s forwards; /* Multiple animations */
 }
 
-.close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  width: 10%;
-}
-
-.search-modal-content h2 {
-  margin: 0;
+.unique-navbar .unique-search-modal-content h2 {
+  margin: 0 0 20px; /* Margin for title */
   text-align: center;
+  font-size: 24px; /* Larger font */
+  color: #333; /* Dark text for readability */
 }
 
-.search-modal-content form {
+.unique-navbar .unique-search-modal-content form {
   display: flex;
   flex-direction: column;
 }
 
-.search-modal-content label {
-  margin: 10px 0 5px;
+.unique-navbar .unique-search-modal-content label {
+  margin: 10px 0 5px; /* Space for labels */
+  font-weight: 600; /* Bold labels */
+  color: #555; /* Darker for readability */
 }
 
-.search-modal-content input {
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.unique-navbar .unique-search-modal-content input {
+  padding: 12px; /* Comfortable padding */
+  margin-bottom: 15px; /* Space between inputs and button */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 8px; /* Rounded corners */
+  font-size: 16px; /* Standard font size */
+  width: 100%; /* Full width */
+  box-sizing: border-box; /* Include padding in width */
+  transition: border-color 0.3s, transform 0.2s; /* Smooth transition */
+  opacity: 0; /* Initially hidden */
+  animation: fadeIn 0.5s forwards; /* Fade in effect */
 }
 
-.search-modal-content button {
-  background-color: #007bff;
+.unique-navbar .unique-search-modal-content input:focus {
+  border-color: #007bff; /* Highlight on focus */
+  outline: none; /* Remove default outline */
+  transform: scale(1.02); /* Slight scale on focus */
+}
+
+.unique-navbar .unique-search-modal-content button {
+  background-color: #007bff; /* Primary button color */
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 10px;
+  border-radius: 8px; /* Rounded corners */
+  padding: 12px; /* Adequate button padding */
+  font-size: 16px; /* Standard font size */
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s; /* Smooth transitions */
+  opacity: 0; /* Initially hidden */
+  animation: fadeIn 0.5s forwards; /* Fade in effect */
 }
 
-.search-modal-content button:hover {
-  background-color: #0056b3;
+.unique-navbar .unique-search-modal-content button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+  transform: translateY(-1px); /* Lift effect */
+}
+
+.unique-navbar .unique-search-modal-content button:active {
+  transform: translateY(1px); /* Pressed effect */
+}
+
+/* Improved Close Button Styling */
+.unique-navbar .unique-close {
+  position: absolute;
+  top: 15px; /* Position for visibility */
+  right: 15px;
+  background: none; /* Remove button styles */
+  border: none; /* Remove border */
+  font-size: 28px; /* Larger close icon */
+  color: #ff4c4c; /* Red color for visibility */
+  cursor: pointer; /* Pointer on hover */
+  transition: transform 0.3s ease, color 0.3s ease; /* Smooth transitions */
+}
+
+.unique-navbar .unique-close:hover {
+  color: #d32f2f; /* Darker red on hover */
+  transform: rotate(90deg); /* Rotate effect */
+}
+
+/* Animation for modal appearance */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(-30px); /* Slide in from above */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Original position */
+  }
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.8); /* Start smaller */
+    opacity: 0; /* Start transparent */
+  }
+  100% {
+    transform: scale(1); /* End at normal size */
+    opacity: 1; /* End fully visible */
+  }
+}
+
+@keyframes bounceIn {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px); /* Bounce up */
+  }
+  60% {
+    transform: translateY(-5px); /* Bounce down */
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* Start transparent */
+  }
+  to {
+    opacity: 1; /* End fully visible */
+  }
 }

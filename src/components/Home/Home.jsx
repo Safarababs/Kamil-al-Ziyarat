@@ -60,7 +60,7 @@ const Home = () => {
   if (loading) {
     return (
       <div className="home" style={{ direction: "ltr" }}>
-        Loading{".".repeat(dotCount)} {/* Add dots based on the dotCount */}
+        Loading{"...".repeat(dotCount)} {/* Add dots based on the dotCount */}
       </div>
     );
   }

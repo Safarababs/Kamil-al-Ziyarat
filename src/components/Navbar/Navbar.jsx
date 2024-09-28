@@ -12,48 +12,58 @@ const Navbar = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (chapterNumber && hadithNumber) {
-      // Navigate to HadithDetail with chapterNumber and hadithNumber
+      console.log(
+        `Searching for Chapter: ${chapterNumber}, Hadith: ${hadithNumber}`
+      );
       navigate(`/hadith/${chapterNumber}/${hadithNumber}`);
       setModalVisible(false);
+    } else {
+      console.log("Please provide both Chapter and Hadith numbers.");
     }
   };
 
   return (
-    <nav className="navbar">
-      <ul className="navbar-list">
-        <li className="navbar-item">
-          <Link to="/" className="navbar-link">
-            <FaHome className="navbar-icon" />
-            <span className="navbar-text">Home</span>
+    <nav className="unique-navbar">
+      <ul className="unique-navbar-list">
+        <li className="unique-navbar-item">
+          <Link to="/" className="unique-navbar-link">
+            <FaHome className="unique-navbar-icon" />
+            <span className="unique-navbar-text">Home</span>
           </Link>
         </li>
-        <li className="navbar-item">
-          <Link to="/settings" className="navbar-link">
-            <FaCog className="navbar-icon" />
-            <span className="navbar-text">Settings</span>
+        <li className="unique-navbar-item">
+          <Link to="/settings" className="unique-navbar-link">
+            <FaCog className="unique-navbar-icon" />
+            <span className="unique-navbar-text">Settings</span>
           </Link>
         </li>
-        <li className="navbar-item">
-          <button className="navbar-link" onClick={() => setModalVisible(true)}>
-            <FaSearch className="navbar-icon" />
-            <span className="navbar-text">Search Hadith</span>
+        <li className="unique-navbar-item">
+          <button
+            className="unique-navbar-search-button" // Updated class name
+            onClick={() => setModalVisible(true)}
+          >
+            <FaSearch className="unique-navbar-icon" />
+            <span className="unique-navbar-text">Search</span>
           </button>
         </li>
-        <li className="navbar-item">
-          <Link to="/user" className="navbar-link">
-            <FaUser className="navbar-icon" />
-            <span className="navbar-text">User</span>
+        <li className="unique-navbar-item">
+          <Link to="/user" className="unique-navbar-link">
+            <FaUser className="unique-navbar-icon" />
+            <span className="unique-navbar-text">User</span>
           </Link>
         </li>
       </ul>
 
       {modalVisible && (
-        <div className="search-modal">
-          <div className="search-modal-content">
-            <button className="close" onClick={() => setModalVisible(false)}>
+        <div className="unique-search-modal">
+          <div className="unique-search-modal-content">
+            <button
+              className="unique-close"
+              onClick={() => setModalVisible(false)}
+            >
               ×
             </button>
-            <h2>Search Hadith</h2>
+            <h2>Search</h2>
             <form onSubmit={handleSearch}>
               <label>
                 Chapter Number:
@@ -73,7 +83,9 @@ const Navbar = () => {
                   required
                 />
               </label>
-              <button type="submit">Search</button>
+              <button type="submit" className="unique-search-button">
+                Search
+              </button>
             </form>
           </div>
         </div>
