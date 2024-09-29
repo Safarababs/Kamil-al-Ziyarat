@@ -116,6 +116,13 @@
   direction: rtl;
 }
 
+.chapter-detail-container .hadith-card .red-text {
+  color: red;
+  font-size: 1rem;
+  margin: 10px 0;
+  direction: rtl;
+}
+
 .chapter-detail-container .hadith-card .black-text-one {
   color: black;
   font-size: 1rem;

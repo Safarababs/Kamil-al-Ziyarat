@@ -1,0 +1,104 @@
+.search-hadiths-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+.search-hadiths-container input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.search-hadiths-container input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.search-hadiths-container button {
+  width: 48%;
+  padding: 12px;
+  margin: 5px 1%;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.search-hadiths-container button:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+.search-hadiths-container .error {
+  color: #e74c3c;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.search-hadiths-container .found-hadith {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.search-hadiths-container .found-hadith h3 {
+  font-size: 22px;
+  color: #333333;
+  margin-bottom: 15px;
+}
+
+.search-hadiths-container .arabic-text {
+  font-family: "Amiri", serif; /* Arabic font */
+  font-size: 18px;
+  color: blue; /* Arabic text color */
+  margin: 10px 0;
+  text-align: right; /* Align text to the right for RTL */
+}
+
+.search-hadiths-container .urdu-text {
+  font-family: "Noto Nastaliq Urdu", serif; /* Urdu font */
+  font-size: 18px;
+  color: black; /* Default Urdu text color */
+  margin: 10px 0;
+  text-align: right;
+  direction: rtl;
+}
+
+.search-hadiths-container .raavi {
+  font-family: "Noto Nastaliq Urdu", serif; /* Urdu font */
+  font-size: 18px;
+  color: red; /* Raavi text color */
+  margin: 10px 0;
+  text-align: right;
+  direction: rtl;
+}
+
+.search-hadiths-container .book-name {
+  font-family: "Noto Nastaliq Urdu", serif; /* Urdu font */
+  font-size: 18px;
+  color: black; /* Book name color */
+  margin: 10px 0;
+  text-align: right;
+  direction: rtl;
+}
+
+.search-hadiths-container p {
+  font-size: 16px;
+  color: #555555;
+  margin: 5px 0;
+}

@@ -109,7 +109,7 @@ const ChapterDetail = () => {
           </div>
           <div className="hadith-content">
             <div className="arabic-text">{currentHadith.arabicText}</div>
-            <div className="raavi">{currentHadith.redText}</div>
+            <div className="red-text">{currentHadith.redText}</div>
             {currentHadith.mixedText &&
               currentHadith.mixedText.map((item, index) => (
                 <div
