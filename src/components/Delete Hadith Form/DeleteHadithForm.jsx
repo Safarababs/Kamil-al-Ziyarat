@@ -7,16 +7,20 @@ const DeleteHadithForm = ({ onClose, onDelete }) => {
   const [hadith, setHadith] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [deleteMessage, setDeleteMessage] = useState(""); // New state for delete message
+  const [deleteMessage, setDeleteMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState(""); // State for success message
+  const [confirmDelete, setConfirmDelete] = useState(false); // State for confirming deletion
 
   const fetchHadith = async () => {
     setLoading(true);
     setError("");
-    setDeleteMessage(""); // Reset delete message
+    setDeleteMessage("");
+    setSuccessMessage("");
+    setConfirmDelete(false); // Reset confirmation state
 
     try {
       const response = await fetch(
-        `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadith/${chapterNumber}/${hadithNumber}` // Updated URL
+        `https://kamil-al-ziyarat-backend-1.onrender.com/api/get-hadith/${chapterNumber}/${hadithNumber}`
       );
 
       if (!response.ok) {
@@ -27,7 +31,9 @@ const DeleteHadithForm = ({ onClose, onDelete }) => {
 
       if (foundHadith) {
         setHadith(foundHadith);
-        setDeleteMessage(`Hadith with ID ${foundHadith._id} found.`); // Set delete message
+        setDeleteMessage(
+          `Chapter ${foundHadith.chapterNumber} & Hadees ${foundHadith.hadithNumber} found.`
+        );
       } else {
         setHadith(null);
         setError("Hadith not found");
@@ -47,7 +53,7 @@ const DeleteHadithForm = ({ onClose, onDelete }) => {
 
     try {
       const response = await fetch(
-        `https://kamil-al-ziyarat-backend-1.onrender.com/api/delete-hadith/${hadith._id}`, // Updated URL
+        `https://kamil-al-ziyarat-backend-1.onrender.com/api/delete-hadith/${hadith._id}`,
         {
           method: "DELETE",
         }
@@ -58,8 +64,12 @@ const DeleteHadithForm = ({ onClose, onDelete }) => {
         throw new Error(errorData.message || "Failed to delete Hadith");
       }
 
+      // Clear messages after deletion
+      setDeleteMessage(""); // Clear delete message
+      setSuccessMessage(`Hadith deleted successfully.`); // Set success message
       onDelete(hadith._id);
-      onClose();
+      setHadith(null); // Reset hadith after deletion
+      setConfirmDelete(false); // Reset confirmation state
     } catch (error) {
       setError(error.message);
     } finally {
@@ -95,19 +105,45 @@ const DeleteHadithForm = ({ onClose, onDelete }) => {
       </div>
       {loading && <p className="loading-text">Loading...</p>}
       {error && <p className="error-text">{error}</p>}
-      {deleteMessage && <p className="delete-message">{deleteMessage}</p>}{" "}
-      {/* Display delete message */}
-      {hadith ? (
+      {deleteMessage && <p className="delete-message">{deleteMessage}</p>}
+      {successMessage && (
+        <p className="success-message" style={{ color: "green" }}>
+          {successMessage}
+        </p>
+      )}
+
+      {hadith && !confirmDelete ? (
         <>
-          <p>Are you sure you want to delete this Hadith?</p>
-          <p>Hadith No: {hadith.hadithNumber}</p>
-          <p>Content: {hadith.content}</p>
+          <p style={{ color: "red" }}>
+            Are you sure you want to delete this Hadith?
+          </p>
+          <button
+            className="delete-hadith-button"
+            onClick={() => setConfirmDelete(true)} // Confirm deletion
+            disabled={loading}
+          >
+            Confirm Delete
+          </button>
+        </>
+      ) : confirmDelete ? (
+        <>
+          <p
+            style={{
+              color: "red",
+              textAlign: "center",
+              fontSize: "1.2rem",
+              marginTop: "1rem",
+            }}
+          >
+            Please Confirm Delete
+          </p>
           <button
             className="delete-hadith-button"
             onClick={handleDelete}
+            style={{ backgroundColor: "red", color: "white" }} // Red background with white text
             disabled={loading}
           >
-            {loading ? "Deleting..." : "Confirm Delete"}
+            {loading ? "Deleting..." : "Click To Delete Now"}
           </button>
         </>
       ) : (

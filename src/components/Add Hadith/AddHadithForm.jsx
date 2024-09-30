@@ -257,7 +257,7 @@ const AddHadithForm = () => {
 
         {step === 4 && (
           <>
-            <div className="form-group">
+            <div className="form-group" dir="rtl">
               <input
                 name="raavi"
                 value={formData.raavi}
@@ -279,7 +279,7 @@ const AddHadithForm = () => {
 
         {step === 5 && (
           <>
-            <div className="form-group">
+            <div className="form-group" dir="rtl">
               <input
                 name="bookName"
                 value={formData.bookName}
@@ -301,7 +301,7 @@ const AddHadithForm = () => {
 
         {step === 6 && (
           <>
-            <div className="form-group">
+            <div className="form-group" dir="rtl">
               <textarea
                 name="redText"
                 value={formData.redText}
@@ -324,7 +324,7 @@ const AddHadithForm = () => {
 
         {step === 7 && (
           <>
-            <div className="form-group">
+            <div className="form-group" dir="rtl">
               <textarea
                 name="arabicText"
                 value={formData.arabicText}
@@ -393,7 +393,7 @@ const AddHadithForm = () => {
               </div>
 
               {showTextInput.urduBlack && (
-                <div className="form-group">
+                <div className="form-group" dir="rtl">
                   <textarea
                     value={currentText}
                     onChange={handleTextInputChange}
@@ -410,7 +410,7 @@ const AddHadithForm = () => {
               )}
 
               {showTextInput.arabic && (
-                <div className="form-group">
+                <div className="form-group" dir="rtl">
                   <textarea
                     value={currentText}
                     onChange={handleTextInputChange}
@@ -428,7 +428,7 @@ const AddHadithForm = () => {
 
               <div className="mixed-text-container">
                 {formData.mixedText.map((text, index) => (
-                  <div key={index} style={{ marginBottom: "10px" }}>
+                  <div key={index} style={{ marginBottom: "10px" }} dir="rtl">
                     <textarea
                       value={text.text}
                       onChange={(e) => handleMixedTextChange(e, index)}
@@ -470,19 +470,19 @@ const AddHadithForm = () => {
               <h4>Hadith No:</h4>
               <p>{formData.hadithNumber}</p>
             </div>
-            <div className="summary-section">
+            <div className="summary-section" dir="rtl">
               <h4>Raavi:</h4>
               <p>{formData.raavi}</p>
             </div>
-            <div className="summary-section">
+            <div className="summary-section" dir="rtl">
               <h4>Book Name:</h4>
               <p>{formData.bookName}</p>
             </div>
-            <div className="summary-section">
+            <div className="summary-section" dir="rtl">
               <h4>Red Text:</h4>
               <p>{formData.redText}</p>
             </div>
-            <div className="summary-section">
+            <div className="summary-section" dir="rtl">
               <h4>Arabic Text:</h4>
               <p>{formData.arabicText}</p>
             </div>
@@ -490,7 +490,7 @@ const AddHadithForm = () => {
               <h4>English Text:</h4>
               <p>{formData.englishText}</p>
             </div>
-            <div className="summary-section">
+            <div className="summary-section" dir="rtl">
               <h4>Mixed Text:</h4>
               {formData.mixedText.map((text, index) => (
                 <p
